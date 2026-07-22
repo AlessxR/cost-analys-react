@@ -1,28 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
-import { Box, Flex, Input, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react';
 
 import { Header } from '@/components/Header/Header';
 import { TransactionCategory } from '@/components/TransactionCategory/TransactionCategory';
 import { TransactionRow } from '@/components/TransactionRow/TransactionRow';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactions } from '@/store/transaction-slice';
-import { fetchCategories } from '@/store/categories-slice';
+import { useSelector } from 'react-redux';
 
 export const TransactionsPage = () => {
     const [activeFilter, setActiveFilter] = useState('all');
-
-    const dispatch = useDispatch();
     const { transactions, status, error } = useSelector(
         (state) => state.transactions,
     );
 
     const { categories } = useSelector((state) => state.categories);
-
-    useEffect(() => {
-        dispatch(fetchTransactions());
-        dispatch(fetchCategories());
-    }, [dispatch]);
 
     if (status === 'loading') return <p>Завантаження...</p>;
     if (status === 'failed') return <p>Помилка: {error}</p>;
@@ -82,24 +73,30 @@ export const TransactionsPage = () => {
                       : 'транзакцій'}
             </Text>
 
-            <Box bg="white" borderRadius="xl" overflow="hidden">
-                {filtered.map((t) => (
-                    <TransactionRow
-                        key={t.id}
-                        date={t.date}
-                        title={t.title}
-                        category={t.category}
-                        amount={t.amount}
-                    />
-                ))}
-                {filtered.length === 0 && (
-                    <Box p="8" textAlign="center">
-                        <Text color="gray.400">
-                            Немає транзакцій за обраною категорією
-                        </Text>
-                    </Box>
-                )}
-            </Box>
+            {transactions.length === 0 ? (
+                <Heading color="black" textAlign="center">
+                    Наразі транзакцій немає :(
+                </Heading>
+            ) : (
+                <Box bg="white" borderRadius="xl" overflow="hidden">
+                    {filtered.map((t) => (
+                        <TransactionRow
+                            key={t.id}
+                            date={t.date}
+                            title={t.title}
+                            category={t.category}
+                            amount={t.amount}
+                        />
+                    ))}
+                    {filtered.length === 0 && (
+                        <Box p="8" textAlign="center">
+                            <Text color="gray.400">
+                                Немає транзакцій за обраною категорією
+                            </Text>
+                        </Box>
+                    )}
+                </Box>
+            )}
         </Box>
     );
 };

@@ -1,17 +1,21 @@
-import { CATEGORIES } from '@/data';
 import { createListCollection } from '@chakra-ui/react';
+import { useSelector } from 'react-redux';
 import { SelectElement } from '../SelectElement';
 
-const categoriesCollection = createListCollection({
-    items: CATEGORIES,
-    itemToString: (item) => item.label,
-    itemToValue: (item) => item.value,
-});
+export const SelectCategory = ({ name }) => {
+    const { categories } = useSelector((state) => state.categories);
 
-export const SelectCategory = ({ name }) => (
-    <SelectElement
-        data={categoriesCollection}
-        selectPlaceholder={'Виберіть категорію'}
-        name={name}
-    />
-);
+    const categoriesCollection = createListCollection({
+        items: categories ?? [],
+        itemToString: (item) => item.label,
+        itemToValue: (item) => item.value,
+    });
+
+    return (
+        <SelectElement
+            data={categoriesCollection}
+            selectPlaceholder={'Виберіть категорію'}
+            name={name}
+        />
+    );
+};
