@@ -1,6 +1,5 @@
+import { CATEGORIES } from '@/data';
 import { createListCollection } from '@chakra-ui/react';
-
-import { CATEGORIES } from '../../../../data/categories';
 import { SelectElement } from '../SelectElement';
 
 const categoriesCollection = createListCollection({
@@ -9,12 +8,10 @@ const categoriesCollection = createListCollection({
     itemToValue: (item) => item.value,
 });
 
-export const SelectCategory = ({ name }) => {
-    return (
-        <SelectElement
-            data={categoriesCollection}
-            selectPlaceholder={'Виберіть категорію'}
-            name={name}
-        />
-    );
-};
+export const SelectCategory = ({ name }) => (
+    <SelectElement
+        data={categoriesCollection}
+        selectPlaceholder={'Виберіть категорію'}
+        name={name}
+    />
+);
