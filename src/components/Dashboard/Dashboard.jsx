@@ -1,17 +1,22 @@
 import { Box, Flex, Grid, HStack, Text } from '@chakra-ui/react';
+
+import { CATEGORY_BREAKDOWN, MONTHLY_DATA } from '../../data/dashboard';
 import { DashboardCard } from './DashboardCard/DashboardCard';
-import { CATEGORIES, MONTHLY_DATA } from '../../data/dashboard';
 
 const Card = ({ children, ...props }) => (
-    <Box bg="white" borderRadius="xl" p="5" {...props}>
+    <Box bg="white" borderRadius="xl" p={{ base: '4', md: '5' }} {...props}>
         {children}
     </Box>
 );
 
 export const Dashboard = () => {
     return (
-        <Box bg="gray.100" p="6" minH="100vh">
-            <Grid templateColumns="repeat(2, 1fr)" gap="4" mb="4">
+        <Box bg="gray.100" p={{ base: '4', md: '6' }} minH="100vh">
+            <Grid
+                templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
+                gap="4"
+                mb="4"
+            >
                 <DashboardCard
                     title="Всього витрачено"
                     description="₴24 380"
@@ -25,7 +30,7 @@ export const Dashboard = () => {
                 />
             </Grid>
 
-            <Grid templateColumns="1.3fr 1fr" gap="4">
+            <Grid templateColumns={{ base: '1fr', md: '1.3fr 1fr' }} gap="4">
                 <Card>
                     <Text fontWeight="semibold" color="black" mb="6">
                         Динаміка за 6 місяців
@@ -39,7 +44,11 @@ export const Dashboard = () => {
                         </Text>
                     </Text>
 
-                    <Flex align="flex-end" gap="4" h="180px">
+                    <Flex
+                        align="flex-end"
+                        gap={{ base: '2', md: '4' }}
+                        h="180px"
+                    >
                         {MONTHLY_DATA.map((item) => (
                             <Flex
                                 key={item.label}
@@ -72,7 +81,7 @@ export const Dashboard = () => {
                         Витрати за категоріями
                     </Text>
                     <Flex direction="column" gap="3">
-                        {CATEGORIES.map((item) => (
+                        {CATEGORY_BREAKDOWN.map((item) => (
                             <HStack key={item.label} justify="space-between">
                                 <HStack gap="2">
                                     <Box

@@ -43,11 +43,3 @@ export const CATEGORY_COLORS = {
     Комунальні: { bg: 'red.50', color: 'red.600' },
     Розваги: { bg: 'purple.50', color: 'purple.600' },
 };
-
-export const FILTER_CATEGORIES = [
-    { label: 'Усі', value: 'all' },
-    { label: 'Продукти', value: 'Продукти' },
-    { label: 'Транспорт', value: 'Транспорт' },
-    { label: 'Комунальні', value: 'Комунальні' },
-    { label: 'Розваги', value: 'Розваги' },
-];

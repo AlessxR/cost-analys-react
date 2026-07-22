@@ -7,7 +7,7 @@ export const MONTHLY_DATA = [
     { label: 'Лип', value: 100 },
 ];
 
-export const CATEGORIES = [
+export const CATEGORY_BREAKDOWN = [
     { label: 'Продукти', sum: '7 940', percent: 33, color: 'green.500' },
     { label: 'Транспорт', sum: '4 120', percent: 17, color: 'orange.600' },
     { label: 'Комунальні', sum: '3 860', percent: 16, color: 'red.500' },
