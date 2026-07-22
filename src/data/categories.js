@@ -5,3 +5,5 @@ export const CATEGORIES = [
     { label: 'Комунальні', value: 'Комунальні' },
     { label: 'Розваги', value: 'Розваги' },
 ];
+
+export const FILTER_CATEGORIES = CATEGORIES;

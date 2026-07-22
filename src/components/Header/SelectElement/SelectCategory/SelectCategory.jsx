@@ -1,6 +1,7 @@
 import { createListCollection } from '@chakra-ui/react';
-import { SelectElement } from '../SelectElement';
+
 import { CATEGORIES } from '../../../../data/categories';
+import { SelectElement } from '../SelectElement';
 
 const categoriesCollection = createListCollection({
     items: CATEGORIES,

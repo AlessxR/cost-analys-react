@@ -1,9 +1,12 @@
 import { useState } from 'react';
-import { Header } from '../../components/Header/Header';
-import { TransactionRow } from '../../components/TransactionRow/TransactionRow';
-import { Box, HStack, Input } from '@chakra-ui/react';
-import { TRANSACTIONS, FILTER_CATEGORIES } from '../../data/transactions';
-import { TransactionCategory } from '../../components/TransactionCategory/TransactionCategory';
+
+import { Box, Flex, Input } from '@chakra-ui/react';
+import { TRANSACTIONS } from '@/data/transactions';
+import { FILTER_CATEGORIES } from '@/data/categories';
+
+import { Header } from '@/components/Header/Header';
+import { TransactionCategory } from '@/components/TransactionCategory/TransactionCategory';
+import { TransactionRow } from '@/components/TransactionRow/TransactionRow';
 
 export const TransactionsPage = () => {
     const [activeFilter, setActiveFilter] = useState('all');
@@ -16,10 +19,20 @@ export const TransactionsPage = () => {
               );
 
     return (
-        <Box p="8">
+        <Box p={{ base: '4', md: '8' }}>
             <Header titleHeader={'Транзакції'} />
 
-            <HStack gap="2" mb="5" wrap="wrap" mt="6">
+            <Flex
+                gap="2"
+                mb="5"
+                mt="6"
+                overflowX="auto"
+                pb="2"
+                css={{
+                    '&::-webkit-scrollbar': { display: 'none' },
+                    scrollbarWidth: 'none',
+                }}
+            >
                 {FILTER_CATEGORIES.map((category) => (
                     <TransactionCategory
                         key={category.value}
@@ -32,10 +45,10 @@ export const TransactionsPage = () => {
                     placeholder="Пошук..."
                     size="sm"
                     borderRadius="full"
-                    flex="1"
                     minW="150px"
+                    flex={{ base: '0 0 auto', md: '1' }}
                 />
-            </HStack>
+            </Flex>
 
             <Box bg="white" borderRadius="xl" overflow="hidden">
                 {filtered.map((t) => (

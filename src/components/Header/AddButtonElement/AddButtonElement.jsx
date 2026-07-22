@@ -1,6 +1,8 @@
-import { Button, Dialog, Field, Input, Portal, Stack } from '@chakra-ui/react';
-import { FiPlus } from 'react-icons/fi';
 import { useRef, useState } from 'react';
+
+import { Button, Dialog, Field, Input, Portal, Stack } from '@chakra-ui/react';
+
+import { FiPlus } from 'react-icons/fi';
 import { SelectCategory } from '../SelectElement/SelectCategory/SelectCategory';
 
 export const AddButtonElement = () => {
