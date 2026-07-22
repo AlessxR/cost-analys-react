@@ -1,11 +1,5 @@
-import { Text as ChakraText } from '@chakra-ui/react';
-import { Box, Flex, HStack } from '@chakra-ui/react';
-import { FiGrid, FiList } from 'react-icons/fi';
-
-const navItems = [
-    { id: 'overview', label: 'Огляд', icon: FiGrid, active: true },
-    { id: 'transactions', label: 'Транзакції', icon: FiList, active: false },
-];
+import { NAV_ITEMS } from '../../data/sidebar';
+import { Box, Flex, HStack, Text as ChakraText } from '@chakra-ui/react';
 
 export const Sidebar = () => (
     <Box w="220px" bg="white" p="4" h="100vh">
@@ -13,7 +7,7 @@ export const Sidebar = () => (
             Бюджет
         </ChakraText>
         <Flex direction="column" gap="1">
-            {navItems.map((item) => (
+            {NAV_ITEMS.map((item) => (
                 <HStack
                     key={item.id}
                     px="3"

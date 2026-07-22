@@ -1,15 +1,14 @@
-import './App.css';
 import { Sidebar } from './components/Sidebar/Sidebar';
 import { Box, Flex } from '@chakra-ui/react';
 import { MainPage } from './pages/MainPage/MainPage';
-import { TransactionsPage } from './pages/TransactionPage/TransactionPage';
+import { TransactionsPage } from './pages/TransactionsPage/TransactionsPage';
 
-export const App = () => {
+const App = () => {
     return (
         <Flex bg="gray.100" minH="100vh">
             <Sidebar />
             <Box flex="1">
-                <MainPage />
+                <TransactionsPage />
             </Box>
         </Flex>
     );

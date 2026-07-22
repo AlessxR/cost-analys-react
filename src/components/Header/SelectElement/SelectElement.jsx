@@ -15,9 +15,9 @@ export const SelectElement = ({ data, selectPlaceholder, name }) => {
             <Portal>
                 <Select.Positioner>
                     <Select.Content>
-                        {data.items.map((data) => (
-                            <Select.Item item={data} key={data.value}>
-                                {data.label}
+                        {data.items.map((item) => (
+                            <Select.Item item={item} key={item.value}>
+                                {item.label}
                                 <Select.ItemIndicator />
                             </Select.Item>
                         ))}

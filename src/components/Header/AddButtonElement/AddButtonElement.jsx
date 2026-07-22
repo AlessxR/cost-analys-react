@@ -6,18 +6,14 @@ import { SelectCategory } from '../SelectElement/SelectCategory/SelectCategory';
 export const AddButtonElement = () => {
     const ref = useRef();
     const [isOpen, setIsOpen] = useState(false);
-    const [data, setData] = useState([]);
 
     const handleSubmitForm = (e) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        let data = Object.fromEntries(formData.entries());
+        const data = Object.fromEntries(formData.entries());
         console.log(data);
         setIsOpen(false);
-        setData(data);
     };
-
-    console.log(data);
 
     return (
         <Dialog.Root
