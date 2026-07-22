@@ -1,6 +1,6 @@
 import { useRef, useState } from 'react';
 
-import { Button, Dialog, Field, Input, Portal, Stack } from '@chakra-ui/react';
+import { Button, Dialog, Field, Input, Portal, Stack, Text } from '@chakra-ui/react';
 
 import { FiPlus } from 'react-icons/fi';
 import { SelectCategory } from '../SelectElement/SelectCategory/SelectCategory';
@@ -24,16 +24,17 @@ export const AddButtonElement = () => {
             initialFocusEl={() => ref.current}
         >
             <Dialog.Trigger bgColor="white" asChild>
-                <Button color="black" variant="outline">
+                <Button color="black" variant="outline" whiteSpace="nowrap">
                     <FiPlus />
-                    Додати операцію
+                    <Text display={{ base: 'none', md: 'inline' }}>Додати операцію</Text>
+                    <Text display={{ base: 'inline', md: 'none' }}>Додати</Text>
                 </Button>
             </Dialog.Trigger>
             {isOpen && (
                 <Portal>
                     <Dialog.Backdrop />
                     <Dialog.Positioner>
-                        <Dialog.Content>
+                        <Dialog.Content maxW={{ base: 'calc(100vw - 32px)', md: 'md' }}>
                             <Dialog.Header>
                                 <Dialog.Title>Нова операція</Dialog.Title>
                             </Dialog.Header>
