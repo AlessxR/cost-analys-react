@@ -1,5 +1,5 @@
-import { CATEGORY_COLORS } from '@/data';
-import { Badge, Flex, Text } from '@chakra-ui/react';
+import { CATEGORY_COLORS } from '@/data/transactions';
+import { Badge, Box, Flex, Text } from '@chakra-ui/react';
 
 export const TransactionRow = ({ date, title, category, amount }) => {
     const isPositive = amount > 0;
@@ -10,81 +10,39 @@ export const TransactionRow = ({ date, title, category, amount }) => {
 
     return (
         <Flex
-            px={{ base: '3', md: '5' }}
+            px={{ base: '4', md: '5' }}
             py={{ base: '3', md: '4' }}
+            align={{ base: 'flex-start', md: 'center' }}
             direction={{ base: 'column', md: 'row' }}
-            gap={{ base: '1', md: '0' }}
-            align={{ base: 'stretch', md: 'center' }}
+            gap={{ base: '2', md: '0' }}
             borderBottom="1px solid"
             borderColor="gray.100"
         >
-            <Flex
-                flex="1"
-                minW="0"
-                direction={{ base: 'row', md: 'row' }}
-                align="center"
-                justify="space-between"
-                gap="2"
-            >
-                <Text
-                    color="black"
-                    fontSize={{ base: 'sm', md: 'md' }}
-                    fontWeight="medium"
-                    overflow="hidden"
-                    textOverflow="ellipsis"
-                    whiteSpace="nowrap"
-                    minW="0"
-                >
+            <Flex flex="1" w="full" justify="space-between" align="center">
+                <Text color="gray.500" fontSize="sm">
+                    {date}
+                </Text>
+                <Text color="black" fontSize={{ base: 'sm', md: 'md' }}>
                     {title}
                 </Text>
-                <Badge
-                    display={{ base: 'none', md: 'inline-flex' }}
-                    borderRadius="full"
-                    px="3"
-                    py="0.5"
-                    bg={badgeColors.bg}
-                    color={badgeColors.color}
-                    fontWeight="normal"
-                    whiteSpace="nowrap"
-                    flexShrink="0"
-                >
-                    {category}
-                </Badge>
             </Flex>
-            <Flex
-                align="center"
-                gap="2"
-                justify={{ base: 'space-between', md: 'flex-end' }}
-                flex={{ base: 'none', md: '1' }}
-            >
-                <Flex align="center" gap="2">
-                    <Text
-                        color="gray.400"
-                        fontSize="xs"
-                        whiteSpace="nowrap"
-                    >
-                        {date}
-                    </Text>
+            <Flex flex="1" w="full" justify="space-between" align="center">
+                <Box>
                     <Badge
-                        display={{ base: 'inline-flex', md: 'none' }}
                         borderRadius="full"
-                        px="2"
+                        px="3"
                         py="0.5"
                         bg={badgeColors.bg}
                         color={badgeColors.color}
                         fontWeight="normal"
-                        fontSize="xs"
-                        whiteSpace="nowrap"
                     >
                         {category}
                     </Badge>
-                </Flex>
+                </Box>
                 <Text
+                    textAlign="right"
                     color={isPositive ? 'green.600' : 'red.500'}
-                    fontWeight="semibold"
-                    fontSize="sm"
-                    whiteSpace="nowrap"
-                    flexShrink="0"
+                    fontWeight="medium"
                 >
                     {isPositive ? '+' : '-'}₴
                     {Math.abs(amount).toLocaleString('uk-UA')}

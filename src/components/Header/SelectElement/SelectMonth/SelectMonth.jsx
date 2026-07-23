@@ -8,10 +8,12 @@ const months = createListCollection({
     ],
 });
 
-export const SelectMonth = ({ name }) => (
-    <SelectElement
-        data={months}
-        selectPlaceholder={'Виберіть місяць'}
-        name={name}
-    />
-);
+export const SelectMonth = ({ name }) => {
+    return (
+        <SelectElement
+            data={months}
+            selectPlaceholder={'Виберіть місяць'}
+            name={name}
+        />
+    );
+};

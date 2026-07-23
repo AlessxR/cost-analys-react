@@ -9,7 +9,7 @@ import {
     IconButton,
     Text as ChakraText,
 } from '@chakra-ui/react';
-import { NAV_ITEMS } from '@/data';
+import { NAV_ITEMS } from '@/data/sidebar';
 
 export const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false);
@@ -18,18 +18,17 @@ export const Sidebar = () => {
         <>
             <IconButton
                 aria-label="Меню"
-                color="black"
+                icon={<FiMenu />}
                 display={{ base: 'flex', md: 'none' }}
                 position="fixed"
                 top="4"
                 left="4"
                 zIndex="20"
-                bgColor="white"
+                bg="white"
+                color="black"
                 size="sm"
                 onClick={() => setIsOpen(true)}
-            >
-                <FiMenu />
-            </IconButton>
+            />
 
             {isOpen && (
                 <Box
