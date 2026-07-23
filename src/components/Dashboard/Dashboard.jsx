@@ -1,16 +1,13 @@
-import { useMemo } from 'react';
-import { Box, Grid, Heading, Text } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
-import {
-    calculateCategoryBreakdown,
-    calculateTotalSpent,
-    getTransactionsForMonth,
-} from '@/lib/utils';
+import { Box, Grid, Heading } from '@chakra-ui/react';
+import { formatCurrency } from '@/lib/utils';
 
 import { DashboardCard } from './DashboardCard';
 import { DashboardBreakDown } from './DashboardBreakdown';
 import { DashboardChart } from './DashboardChart';
 import { Preloader } from '../Preloader';
+import { SectionTitle } from './SectionTitle';
+import { ErrorElement } from '../ErrorElement';
+import { useDashboard } from '@/hooks/useDashboard';
 
 const Card = ({ children, ...props }) => (
     <Box bg="white" borderRadius="xl" p={{ base: '4', md: '5' }} {...props}>
@@ -19,25 +16,17 @@ const Card = ({ children, ...props }) => (
 );
 
 export const Dashboard = () => {
-    const { transactions, status } = useSelector((state) => state.transactions);
-    const { selectedMonth } = useSelector((state) => state.ui);
+    const {
+        fetchStatus,
+        monthTransactions,
+        totalSpent,
+        topCategory,
+        transactions,
+        categoryBreakdown,
+    } = useDashboard();
 
-    const monthTransactions = useMemo(
-        () => getTransactionsForMonth(transactions, selectedMonth),
-        [transactions, selectedMonth],
-    );
-
-    const totalSpent = useMemo(
-        () => calculateTotalSpent(monthTransactions),
-        [monthTransactions],
-    );
-
-    const topCategory = useMemo(
-        () => calculateCategoryBreakdown(monthTransactions)[0],
-        [monthTransactions],
-    );
-
-    if (status === 'loading') return <Preloader />;
+    if (fetchStatus === 'loading') return <Preloader />;
+    if (fetchStatus === 'failed') return <ErrorElement />;
 
     return (
         <Box p={{ base: '4', md: '6' }} minH="100vh">
@@ -54,14 +43,14 @@ export const Dashboard = () => {
                     >
                         <DashboardCard
                             title="Всього витрачено"
-                            value={'₴' + totalSpent}
+                            value={formatCurrency(totalSpent)}
                         />
 
                         {topCategory && (
                             <DashboardCard
                                 title="Найбільша категорія"
                                 value={topCategory.label}
-                                subtitle={`₴${topCategory.sum} · ${topCategory.percent}%`}
+                                subtitle={`${formatCurrency(topCategory.sum)} · ${topCategory.percent}%`}
                             />
                         )}
                     </Grid>
@@ -71,38 +60,19 @@ export const Dashboard = () => {
                         gap="4"
                     >
                         <Card>
-                            <Text
-                                fontWeight="semibold"
-                                color="black"
-                                mb="4"
-                                fontSize={{ base: 'sm', md: 'md' }}
-                            >
+                            <SectionTitle extra={formatCurrency(totalSpent)}>
                                 Динаміка за 6 місяців
-                                <Text
-                                    as="span"
-                                    float="right"
-                                    fontWeight="normal"
-                                    color="gray.500"
-                                    fontSize={{ base: 'xs', md: 'sm' }}
-                                >
-                                    ₴{totalSpent}
-                                </Text>
-                            </Text>
+                            </SectionTitle>
 
                             <DashboardChart transactions={transactions} />
                         </Card>
 
                         <Card>
-                            <Text
-                                fontWeight="semibold"
-                                color="black"
-                                mb="4"
-                                fontSize={{ base: 'sm', md: 'md' }}
-                            >
+                            <SectionTitle extra={totalSpent}>
                                 Витрати за категоріями
-                            </Text>
+                            </SectionTitle>
                             <DashboardBreakDown
-                                transactions={monthTransactions}
+                                categoryBreakdown={categoryBreakdown}
                             />
                         </Card>
                     </Grid>

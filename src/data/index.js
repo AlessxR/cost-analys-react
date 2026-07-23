@@ -15,6 +15,21 @@ export const MONTH_LABELS = [
     'Гру',
 ];
 
+export const MONTH_NAMES = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+];
+
 export const CATEGORY_COLORS = {
     Продукти: { bg: 'green.50', color: 'green.700' },
     Транспорт: { bg: 'orange.50', color: 'orange.700' },

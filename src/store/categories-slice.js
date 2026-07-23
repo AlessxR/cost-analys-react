@@ -1,15 +1,5 @@
+import { categoriesApi } from '@/services/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-const BASE_URL = import.meta.env.VITE_API_URL;
-
-export const fetchCategories = createAsyncThunk(
-    'categories/fetchCategories',
-    async () => {
-        const response = await fetch(`${BASE_URL}/categories`);
-        if (!response.ok) throw new Error('Failed to fetch categories');
-        return response.json();
-    },
-);
 
 const initialState = {
     categories: [],
@@ -31,9 +21,29 @@ const categoriesSlice = createSlice({
             })
             .addCase(fetchCategories.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.error.message;
+                const errorPayload = action.payload;
+                state.error =
+                    errorPayload?.message ||
+                    action.error.message ||
+                    'Невідома помилка...';
             });
     },
 });
+
+export const fetchCategories = createAsyncThunk(
+    'categories/fetchCategories',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await categoriesApi.getCategories();
+        } catch (e) {
+            const errorMessage = e.message || 'Помилка завантаження категорій';
+            return rejectWithValue({
+                message: errorMessage,
+                type: e.type || 'ERROR',
+                status: e.status,
+            });
+        }
+    },
+);
 
 export default categoriesSlice;

@@ -1,0 +1,21 @@
+import { Text } from '@chakra-ui/react';
+
+export const SectionTitle = ({ children, extra }) => (
+    <Text
+        fontWeight="semibold"
+        color="black"
+        mb="4"
+        fontSize={{ base: 'sm', md: 'md' }}
+    >
+        {children}
+        <Text
+            as="span"
+            float="right"
+            fontWeight="normal"
+            color="gray.500"
+            fontSize={{ base: 'xs', md: 'sm' }}
+        >
+            {extra}
+        </Text>
+    </Text>
+);

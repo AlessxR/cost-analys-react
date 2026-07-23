@@ -7,14 +7,7 @@ import {
     XAxis,
 } from 'recharts';
 import { Box } from '@chakra-ui/react';
-import { getMonthlyData } from '@/lib/utils';
-
-const formatCurrency = (value) =>
-    new Intl.NumberFormat('uk-UA', {
-        style: 'currency',
-        currency: 'UAH',
-        notation: 'standard',
-    }).format(value);
+import { formatCurrency, getMonthlyData } from '@/lib/utils';
 
 export const DashboardChart = ({ transactions }) => {
     const data = getMonthlyData(transactions);
