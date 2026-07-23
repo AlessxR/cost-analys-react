@@ -1,7 +1,5 @@
 import { ThemeProvider } from 'next-themes';
 
-export function ColorModeProvider(props) {
-    return (
-        <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
-    );
-}
+export const ColorModeProvider = (props) => (
+    <ThemeProvider attribute="class" disableTransitionOnChange {...props} />
+);

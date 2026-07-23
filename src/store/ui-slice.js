@@ -1,10 +1,22 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const month = new Date().getMonth();
-const year = new Date().getFullYear();
+const MONTH_NAMES = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+];
 
-const CURRENT_MONTH_VALUE =
-    month.toLocaleString('en-US', { month: 'long' }).toLowerCase() + year;
+const now = new Date();
+const CURRENT_MONTH_VALUE = MONTH_NAMES[now.getMonth()] + now.getFullYear();
 
 const initialState = {
     selectedMonth: CURRENT_MONTH_VALUE,

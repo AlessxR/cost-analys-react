@@ -1,5 +1,38 @@
 import { MONTH_LABELS } from '@/data';
 
+const MONTH_NAMES = [
+    'january',
+    'february',
+    'march',
+    'april',
+    'may',
+    'june',
+    'july',
+    'august',
+    'september',
+    'october',
+    'november',
+    'december',
+];
+
+export const generateMonthItems = (count = 12) => {
+    const now = new Date();
+    const items = [];
+
+    for (let i = 0; i < count; i++) {
+        const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
+        const monthIndex = date.getMonth();
+        const monthName = MONTH_NAMES[monthIndex];
+        const year = date.getFullYear();
+        const value = `${monthName}${year}`;
+        const label = `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`;
+
+        items.push({ label, value });
+    }
+
+    return items;
+};
+
 export const calculateTotalSpent = (transactions) =>
     transactions
         .filter((el) => el.amount < 0)
@@ -61,22 +94,37 @@ export const formatDateToString = (date) => {
 };
 
 const MONTH_VALUE_MAP = {
+    january: 0,
+    february: 1,
+    march: 2,
+    april: 3,
+    may: 4,
     june: 5,
     july: 6,
+    august: 7,
+    september: 8,
+    october: 9,
+    november: 10,
+    december: 11,
 };
 
 export const parseMonthValue = (value) => {
-    const match = value?.match(/^([a-z]+)(\d{4})$/i);
-    if (!match) return null;
-    const [, monthName, year] = match;
-    const monthIndex = MONTH_VALUE_MAP[monthName.toLowerCase()];
-    if (monthIndex === undefined) return null;
-    return { year: Number(year), monthIndex };
+    if (typeof value !== 'string' || !value.trim()) return null;
+    const lower = value.toLowerCase();
+    for (const [name, monthIndex] of Object.entries(MONTH_VALUE_MAP)) {
+        if (lower.startsWith(name)) {
+            const year = lower.slice(name.length);
+            if (/^\d{4}$/.test(year)) {
+                return { year: Number(year), monthIndex };
+            }
+        }
+    }
+    return null;
 };
 
 export const getTransactionsForMonth = (transactions = [], monthValue) => {
     const parsed = parseMonthValue(monthValue);
-    if (!parsed) return transactions;
+    if (!parsed) return [];
 
     return transactions.filter((t) => {
         const d = new Date(t.date);

@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { calculateCategoryBreakdown, calculateTotalSpent } from '@/lib/utils';
-
-const BASE_URL = 'https://6a60b66bda10c59c180902cc.mockapi.io';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchTransactions = createAsyncThunk(
     'transactions/fetchTransactions',
@@ -28,8 +26,6 @@ export const postTransaction = createAsyncThunk(
 
 const initialState = {
     transactions: [],
-    totalSpent: 0,
-    totalCategory: null,
     status: '',
     error: null,
 };
@@ -37,7 +33,6 @@ const initialState = {
 const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
         builder
             // get transactions
@@ -47,10 +42,6 @@ const transactionSlice = createSlice({
             .addCase(fetchTransactions.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.transactions = action.payload;
-                state.totalSpent = calculateTotalSpent(state.transactions);
-                state.totalCategory = calculateCategoryBreakdown(
-                    state.transactions,
-                )[0];
             })
             .addCase(fetchTransactions.rejected, (state, action) => {
                 state.status = 'failed';
@@ -60,10 +51,6 @@ const transactionSlice = createSlice({
             // add new transaction
             .addCase(postTransaction.fulfilled, (state, action) => {
                 state.transactions.push(action.payload);
-                state.totalSpent = calculateTotalSpent(state.transactions);
-                state.totalCategory = calculateCategoryBreakdown(
-                    state.transactions,
-                )[0];
             })
             .addCase(postTransaction.rejected, (state, action) => {
                 state.error = action.error.message;
@@ -71,5 +58,4 @@ const transactionSlice = createSlice({
     },
 });
 
-export const transactionActions = transactionSlice.actions;
 export default transactionSlice;

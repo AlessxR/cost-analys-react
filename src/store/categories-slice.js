@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const BASE_URL = 'https://6a60b66bda10c59c180902cc.mockapi.io';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
@@ -14,13 +14,12 @@ export const fetchCategories = createAsyncThunk(
 const initialState = {
     categories: [],
     status: '',
-    error: '',
+    error: null,
 };
 
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchCategories.pending, (state) => {
@@ -37,5 +36,4 @@ const categoriesSlice = createSlice({
     },
 });
 
-export const categoriesActions = categoriesSlice.actions;
 export default categoriesSlice;

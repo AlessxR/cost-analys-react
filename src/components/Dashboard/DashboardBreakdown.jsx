@@ -1,12 +1,8 @@
-import { useSelector } from 'react-redux';
-
 import { Box, HStack, Text, Flex } from '@chakra-ui/react';
 
 import { calculateCategoryBreakdown } from '@/lib/utils';
 
-export const DashboardBreakDown = () => {
-    const { transactions } = useSelector((state) => state.transactions);
-
+export const DashboardBreakDown = ({ transactions }) => {
     const categoryBreakdown = calculateCategoryBreakdown(transactions);
 
     return (
@@ -27,7 +23,7 @@ export const DashboardBreakDown = () => {
                         <Text color="black">
                             ₴{item.sum.toLocaleString('uk-UA')}
                         </Text>
-                        <Text color="black" w="10" textAlign="right">
+                        <Text color="black" w="12" textAlign="right">
                             {item.percent}%
                         </Text>
                     </HStack>

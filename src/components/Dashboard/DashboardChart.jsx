@@ -8,7 +8,6 @@ import {
 } from 'recharts';
 import { Box } from '@chakra-ui/react';
 import { getMonthlyData } from '@/lib/utils';
-import { useSelector } from 'react-redux';
 
 const formatCurrency = (value) =>
     new Intl.NumberFormat('uk-UA', {
@@ -17,9 +16,7 @@ const formatCurrency = (value) =>
         notation: 'standard',
     }).format(value);
 
-export const DashboardChart = () => {
-    const { transactions } = useSelector((state) => state.transactions);
-
+export const DashboardChart = ({ transactions }) => {
     const data = getMonthlyData(transactions);
 
     return (

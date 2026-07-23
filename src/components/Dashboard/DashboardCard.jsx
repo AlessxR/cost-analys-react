@@ -13,7 +13,7 @@ export const DashboardCard = ({ title, value, subtitle }) => (
             >
                 {value}
             </Text>
-            <Text fontSize="sm" color="gray.500" mt="1">
+            <Text fontSize="sm" color="gray.500" mt="0">
                 {subtitle}
             </Text>
         </Card.Body>

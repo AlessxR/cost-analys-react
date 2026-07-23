@@ -4,9 +4,9 @@ import { useSelector } from 'react-redux';
 import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react';
 
 import { Header } from '@/components/Header/Header';
-import { TransactionCategory } from '@/components/TransactionCategory/TransactionCategory';
-import { TransactionRow } from '@/components/TransactionRow/TransactionRow';
-import { Preloader } from '@/components/Preloader/Preloader';
+import { TransactionCategory } from '@/components/TransactionCategory';
+import { TransactionRow } from '@/components/TransactionRow';
+import { Preloader } from '@/components/Preloader';
 import { getTransactionsForMonth } from '@/lib/utils';
 
 export const TransactionsPage = () => {
@@ -20,7 +20,7 @@ export const TransactionsPage = () => {
     const { categories } = useSelector((state) => state.categories);
 
     if (status === 'loading') return <Preloader />;
-    if (status === 'failed') return <p>Помилка: {error}</p>;
+    if (status === 'failed') return <Text>Error... {error}</Text>;
 
     const monthTransactions = getTransactionsForMonth(
         transactions,
@@ -95,7 +95,7 @@ export const TransactionsPage = () => {
 
             {monthTransactions.length === 0 ? (
                 <Heading color="black" textAlign="center">
-                    Наразі транзакцій немає :(
+                    Наразі транзакцій немає : (
                 </Heading>
             ) : (
                 <Box bg="white" borderRadius="xl" overflow="hidden">

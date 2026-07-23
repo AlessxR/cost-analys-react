@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 import transactionSlice from './transaction-slice';
 import categoriesSlice from './categories-slice';
-import uiSlice from './month-slice';
+import uiSlice from './ui-slice';
 
 const store = configureStore({
     reducer: {

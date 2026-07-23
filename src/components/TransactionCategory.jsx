@@ -5,7 +5,10 @@ export const TransactionCategory = ({ category, isActive, onClick }) => (
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
-            if (e.key === 'Enter' || e.key === ' ') onClick?.(e);
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick?.(e);
+            }
         }}
         onClick={onClick}
         px={{ base: '3', md: '4' }}

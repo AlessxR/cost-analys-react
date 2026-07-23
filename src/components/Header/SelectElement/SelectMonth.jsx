@@ -1,13 +1,11 @@
 import { createListCollection } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
-import { SelectElement } from '../SelectElement';
-import { uiActions } from '@/store/month-slice';
+import { uiActions } from '@/store/ui-slice';
+import { SelectElement } from './SelectElement';
+import { generateMonthItems } from '@/lib/utils';
 
 const months = createListCollection({
-    items: [
-        { label: 'Червень', value: 'june2026' },
-        { label: 'Липень', value: 'july2026' },
-    ],
+    items: generateMonthItems(12),
 });
 
 export const SelectMonth = ({ name }) => {
