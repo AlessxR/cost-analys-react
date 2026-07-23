@@ -1,16 +1,11 @@
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+
 import { Box, HStack, Text, Flex } from '@chakra-ui/react';
-import { fetchTransactions } from '@/store/transaction-slice';
+
 import { calculateCategoryBreakdown } from '@/lib/utils';
 
 export const DashboardBreakDown = () => {
-    const dispatch = useDispatch();
     const { transactions } = useSelector((state) => state.transactions);
-
-    useEffect(() => {
-        dispatch(fetchTransactions());
-    }, [dispatch]);
 
     const categoryBreakdown = calculateCategoryBreakdown(transactions);
 
@@ -23,7 +18,8 @@ export const DashboardBreakDown = () => {
                             w="2.5"
                             h="2.5"
                             borderRadius="full"
-                            bg={item.color}
+                            color="white"
+                            bg="black"
                         />
                         <Text color="black">{item.label}</Text>
                     </HStack>

@@ -1,10 +1,15 @@
+import { useMemo } from 'react';
 import { Box, Flex, Grid, Text } from '@chakra-ui/react';
-import { MONTHLY_DATA } from '@/data';
+import { useSelector } from 'react-redux';
+import {
+    calculateCategoryBreakdown,
+    calculateTotalSpent,
+    getTransactionsForMonth,
+} from '@/lib/utils';
 import { DashboardCard } from './DashboardCard/DashboardCard';
-import { useDispatch, useSelector } from 'react-redux';
 import { DashboardBreakDown } from './DashboardBreakdown/DashboardBreakdown';
-import { useEffect } from 'react';
-import { fetchTransactions } from '@/store/transaction-slice';
+import { DashboardChart } from './DashboardChart/DashboardChart';
+import { SelectMonth } from '../Header/SelectElement/SelectMonth/SelectMonth';
 
 const Card = ({ children, ...props }) => (
     <Box bg="white" borderRadius="xl" p={{ base: '4', md: '5' }} {...props}>
@@ -13,17 +18,30 @@ const Card = ({ children, ...props }) => (
 );
 
 export const Dashboard = () => {
-    const dispatch = useDispatch();
-    const { totalSpent, totalCategory } = useSelector(
-        (state) => state.transactions,
+    const { transactions } = useSelector((state) => state.transactions);
+    const { selectedMonth } = useSelector((state) => state.ui);
+
+    const monthTransactions = useMemo(
+        () => getTransactionsForMonth(transactions, selectedMonth),
+        [transactions, selectedMonth],
     );
 
-    useEffect(() => {
-        dispatch(fetchTransactions());
-    }, [dispatch]);
+    const totalSpent = useMemo(
+        () => calculateTotalSpent(monthTransactions),
+        [monthTransactions],
+    );
+
+    const totalCategory = useMemo(
+        () => calculateCategoryBreakdown(monthTransactions)[0],
+        [monthTransactions],
+    );
 
     return (
         <Box bg="gray.100" p={{ base: '4', md: '6' }} minH="100vh">
+            <Flex justify="flex-end" mb="4">
+                <SelectMonth name="month" />
+            </Flex>
+
             <Grid
                 templateColumns={{ base: '1fr', md: 'repeat(2, 1fr)' }}
                 gap="4"
@@ -31,15 +49,14 @@ export const Dashboard = () => {
             >
                 <DashboardCard
                     title="Всього витрачено"
-                    description={'₴' + totalSpent}
-                    information="+12% до минулого місяця"
+                    value={'₴' + totalSpent}
                 />
 
                 {totalCategory && (
                     <DashboardCard
                         title="Найбільша категорія"
-                        description={totalCategory.label}
-                        information={`₴${totalCategory.sum} · ${totalCategory.percent}%`}
+                        value={totalCategory.label}
+                        subtitle={`₴${totalCategory.sum} · ${totalCategory.percent}%`}
                     />
                 )}
             </Grid>
@@ -64,42 +81,7 @@ export const Dashboard = () => {
                         </Text>
                     </Text>
 
-                    <Flex
-                        align="flex-end"
-                        gap={{ base: '1', md: '4' }}
-                        h={{ base: '140px', md: '180px' }}
-                    >
-                        {MONTHLY_DATA.map((item) => (
-                            <Flex
-                                key={item.label}
-                                direction="column"
-                                align="center"
-                                flex="1"
-                                h="full"
-                                justify="flex-end"
-                                minW="0"
-                            >
-                                <Box
-                                    w="full"
-                                    h={`${item.value}%`}
-                                    bg={
-                                        item.value === 100
-                                            ? 'green.600'
-                                            : 'gray.300'
-                                    }
-                                    borderRadius="md"
-                                />
-                                <Text
-                                    fontSize={{ base: '2xs', md: 'sm' }}
-                                    color="black"
-                                    mt="1"
-                                    whiteSpace="nowrap"
-                                >
-                                    {item.label}
-                                </Text>
-                            </Flex>
-                        ))}
-                    </Flex>
+                    <DashboardChart />
                 </Card>
 
                 <Card>

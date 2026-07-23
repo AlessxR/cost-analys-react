@@ -1,5 +1,7 @@
 import { createListCollection } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
 import { SelectElement } from '../SelectElement';
+import { uiActions } from '@/store/month-slice';
 
 const months = createListCollection({
     items: [
@@ -8,10 +10,19 @@ const months = createListCollection({
     ],
 });
 
-export const SelectMonth = ({ name }) => (
-    <SelectElement
-        data={months}
-        selectPlaceholder={'Виберіть місяць'}
-        name={name}
-    />
-);
+export const SelectMonth = ({ name }) => {
+    const dispatch = useDispatch();
+    const { selectedMonth } = useSelector((state) => state.ui);
+
+    return (
+        <SelectElement
+            data={months}
+            selectPlaceholder={'Виберіть місяць'}
+            name={name}
+            value={[selectedMonth]}
+            onValueChange={(details) =>
+                dispatch(uiActions.setSelectedMonth(details.value[0]))
+            }
+        />
+    );
+};

@@ -1,5 +1,6 @@
-import { calculateCategoryBreakdown, calculateTotalSpent } from '@/lib/utils';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+
+import { calculateCategoryBreakdown, calculateTotalSpent } from '@/lib/utils';
 
 const BASE_URL = 'https://6a60b66bda10c59c180902cc.mockapi.io';
 
@@ -46,7 +47,6 @@ const transactionSlice = createSlice({
             .addCase(fetchTransactions.fulfilled, (state, action) => {
                 state.status = 'succeeded';
                 state.transactions = action.payload;
-                console.log(state.transactions);
                 state.totalSpent = calculateTotalSpent(state.transactions);
                 state.totalCategory = calculateCategoryBreakdown(
                     state.transactions,

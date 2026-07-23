@@ -6,7 +6,7 @@ export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
     async () => {
         const response = await fetch(`${BASE_URL}/categories`);
-        if (!response.ok) throw new Error('Failed to fetch transactions');
+        if (!response.ok) throw new Error('Failed to fetch categories');
         return response.json();
     },
 );
@@ -14,6 +14,7 @@ export const fetchCategories = createAsyncThunk(
 const initialState = {
     categories: [],
     status: '',
+    error: '',
 };
 
 const categoriesSlice = createSlice({
@@ -36,5 +37,5 @@ const categoriesSlice = createSlice({
     },
 });
 
-export const counterActions = categoriesSlice.actions;
+export const categoriesActions = categoriesSlice.actions;
 export default categoriesSlice;

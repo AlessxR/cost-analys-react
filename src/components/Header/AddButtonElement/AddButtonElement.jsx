@@ -14,6 +14,7 @@ import { FiPlus } from 'react-icons/fi';
 import { SelectCategory } from '../SelectElement/SelectCategory/SelectCategory';
 import { useDispatch } from 'react-redux';
 import { postTransaction } from '@/store/transaction-slice';
+import { formatDateToString } from '@/lib/utils';
 
 export const AddButtonElement = () => {
     const ref = useRef();
@@ -30,7 +31,7 @@ export const AddButtonElement = () => {
                 title: data.description,
                 category: data.category,
                 amount: Number(data.summa),
-                date: data.date || new Date().toISOString().split('T')[0],
+                date: formatDateToString(data.date),
             }),
         );
 
