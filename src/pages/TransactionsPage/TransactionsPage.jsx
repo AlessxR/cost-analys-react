@@ -1,38 +1,46 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
-import { Box, Flex, Input, Text } from '@chakra-ui/react';
+import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react';
 
 import { Header } from '@/components/Header/Header';
-import { TransactionCategory } from '@/components/TransactionCategory/TransactionCategory';
-import { TransactionRow } from '@/components/TransactionRow/TransactionRow';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchTransactions } from '@/store/transaction-slice';
-import { fetchCategories } from '@/store/categories-slice';
+import { TransactionCategory } from '@/components/TransactionCategory';
+import { TransactionRow } from '@/components/TransactionRow';
+import { Preloader } from '@/components/Preloader';
+import { getTransactionsForMonth } from '@/lib/utils';
 
 export const TransactionsPage = () => {
     const [activeFilter, setActiveFilter] = useState('all');
-
-    const dispatch = useDispatch();
+    const [searchTerm, setSearchTerm] = useState('');
     const { transactions, status, error } = useSelector(
         (state) => state.transactions,
     );
+    const { selectedMonth } = useSelector((state) => state.ui);
 
     const { categories } = useSelector((state) => state.categories);
 
-    useEffect(() => {
-        dispatch(fetchTransactions());
-        dispatch(fetchCategories());
-    }, [dispatch]);
+    if (status === 'loading') return <Preloader />;
+    if (status === 'failed') return <Text>Error... {error}</Text>;
 
-    if (status === 'loading') return <p>Завантаження...</p>;
-    if (status === 'failed') return <p>Помилка: {error}</p>;
+    const monthTransactions = getTransactionsForMonth(
+        transactions,
+        selectedMonth,
+    );
 
-    const filtered =
+    const categoryFiltered =
         activeFilter === 'all'
-            ? transactions
-            : transactions.filter(
+            ? monthTransactions
+            : monthTransactions.filter(
                   (transaction) => transaction.category === activeFilter,
               );
+
+    const filtered = searchTerm.trim()
+        ? categoryFiltered.filter((transaction) =>
+              transaction.title
+                  .toLowerCase()
+                  .includes(searchTerm.trim().toLowerCase()),
+          )
+        : categoryFiltered;
 
     return (
         <Box p={{ base: '4', md: '8' }}>
@@ -70,6 +78,9 @@ export const TransactionsPage = () => {
                     minW={{ base: '0', md: '150px' }}
                     w={{ base: 'full', md: 'auto' }}
                     flex={{ base: '0 0 auto', md: '1' }}
+                    value={searchTerm}
+                    color="black"
+                    onChange={(e) => setSearchTerm(e.target.value)}
                 />
             </Flex>
 
@@ -82,24 +93,32 @@ export const TransactionsPage = () => {
                       : 'транзакцій'}
             </Text>
 
-            <Box bg="white" borderRadius="xl" overflow="hidden">
-                {filtered.map((t) => (
-                    <TransactionRow
-                        key={t.id}
-                        date={t.date}
-                        title={t.title}
-                        category={t.category}
-                        amount={t.amount}
-                    />
-                ))}
-                {filtered.length === 0 && (
-                    <Box p="8" textAlign="center">
-                        <Text color="gray.400">
-                            Немає транзакцій за обраною категорією
-                        </Text>
-                    </Box>
-                )}
-            </Box>
+            {monthTransactions.length === 0 ? (
+                <Heading color="black" textAlign="center">
+                    Наразі транзакцій немає : (
+                </Heading>
+            ) : (
+                <Box bg="white" borderRadius="xl" overflow="hidden">
+                    {filtered.map((t) => (
+                        <TransactionRow
+                            key={t.id}
+                            date={t.date}
+                            title={t.title}
+                            category={t.category}
+                            amount={t.amount}
+                        />
+                    ))}
+                    {filtered.length === 0 && (
+                        <Box p="8" textAlign="center">
+                            <Text color="gray.400">
+                                {searchTerm.trim()
+                                    ? 'Нічого не знайдено за вашим запитом'
+                                    : 'Немає транзакцій за обраною категорією'}
+                            </Text>
+                        </Box>
+                    )}
+                </Box>
+            )}
         </Box>
     );
 };

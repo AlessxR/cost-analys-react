@@ -1,6 +1,6 @@
 import { Card, Text } from '@chakra-ui/react';
 
-export const DashboardCard = ({ title, description, information }) => (
+export const DashboardCard = ({ title, value, subtitle }) => (
     <Card.Root bgColor="white" border="none">
         <Card.Body>
             <Text fontSize="sm" color="gray.500" mb="2">
@@ -11,10 +11,10 @@ export const DashboardCard = ({ title, description, information }) => (
                 color="black"
                 fontWeight="semibold"
             >
-                {description}
+                {value}
             </Text>
-            <Text fontSize="sm" color="gray.500" mt="1">
-                {information}
+            <Text fontSize="sm" color="gray.500" mt="0">
+                {subtitle}
             </Text>
         </Card.Body>
     </Card.Root>

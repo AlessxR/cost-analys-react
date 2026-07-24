@@ -1,13 +1,21 @@
 import { Portal, Select } from '@chakra-ui/react';
 
-export const SelectElement = ({ data, selectPlaceholder, name }) => (
-        <Select.Root
-            collection={data}
-            size="sm"
-            width={{ base: 'auto', md: '320px' }}
-            minW="0"
-            flex="1"
-        >
+export const SelectElement = ({
+    data,
+    selectPlaceholder,
+    name,
+    value,
+    onValueChange,
+}) => (
+    <Select.Root
+        collection={data}
+        size="sm"
+        width={{ base: 'auto', md: '320px' }}
+        minW="0"
+        flex="1"
+        value={value}
+        onValueChange={onValueChange}
+    >
         <Select.HiddenSelect name={name} />
         <Select.Control>
             <Select.Trigger>

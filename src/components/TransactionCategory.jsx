@@ -2,6 +2,14 @@ import { Box } from '@chakra-ui/react';
 
 export const TransactionCategory = ({ category, isActive, onClick }) => (
     <Box
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                onClick?.(e);
+            }
+        }}
         onClick={onClick}
         px={{ base: '3', md: '4' }}
         py={{ base: '1', md: '1.5' }}

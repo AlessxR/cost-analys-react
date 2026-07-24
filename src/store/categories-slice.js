@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const BASE_URL = 'https://6a60b66bda10c59c180902cc.mockapi.io';
+const BASE_URL = import.meta.env.VITE_API_URL;
 
 export const fetchCategories = createAsyncThunk(
     'categories/fetchCategories',
     async () => {
         const response = await fetch(`${BASE_URL}/categories`);
-        if (!response.ok) throw new Error('Failed to fetch transactions');
+        if (!response.ok) throw new Error('Failed to fetch categories');
         return response.json();
     },
 );
@@ -14,12 +14,12 @@ export const fetchCategories = createAsyncThunk(
 const initialState = {
     categories: [],
     status: '',
+    error: null,
 };
 
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
-    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchCategories.pending, (state) => {
@@ -36,5 +36,4 @@ const categoriesSlice = createSlice({
     },
 });
 
-export const counterActions = categoriesSlice.actions;
 export default categoriesSlice;

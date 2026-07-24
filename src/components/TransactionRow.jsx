@@ -58,11 +58,7 @@ export const TransactionRow = ({ date, title, category, amount }) => {
                 flex={{ base: 'none', md: '1' }}
             >
                 <Flex align="center" gap="2">
-                    <Text
-                        color="gray.400"
-                        fontSize="xs"
-                        whiteSpace="nowrap"
-                    >
+                    <Text color="gray.400" fontSize="xs" whiteSpace="nowrap">
                         {date}
                     </Text>
                     <Badge

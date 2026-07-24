@@ -1,5 +1,5 @@
 import App from '@/App';
-import { NotFound } from '@/components/NotFound/NotFound';
+import { NotFound } from '@/components/NotFound';
 import { MainPage } from '@/pages/MainPage/MainPage';
 import { TransactionsPage } from '@/pages/TransactionsPage/TransactionsPage';
 
