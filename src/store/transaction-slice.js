@@ -1,32 +1,10 @@
+import { transactionsApi } from '@/services/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
-const BASE_URL = import.meta.env.VITE_API_URL;
-
-export const fetchTransactions = createAsyncThunk(
-    'transactions/fetchTransactions',
-    async () => {
-        const response = await fetch(`${BASE_URL}/transactions`);
-        if (!response.ok) throw new Error('Failed to fetch transactions');
-        return response.json();
-    },
-);
-
-export const postTransaction = createAsyncThunk(
-    'transactions/postTransaction',
-    async (transactionData) => {
-        const response = await fetch(`${BASE_URL}/transactions`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(transactionData),
-        });
-        if (!response.ok) throw new Error('Failed to post transaction');
-        return response.json();
-    },
-);
 
 const initialState = {
     transactions: [],
-    status: '',
+    fetchStatus: '',
+    postStatus: '',
     error: null,
 };
 
@@ -37,25 +15,71 @@ const transactionSlice = createSlice({
         builder
             // get transactions
             .addCase(fetchTransactions.pending, (state) => {
-                state.status = 'loading';
+                state.fetchStatus = 'loading';
             })
             .addCase(fetchTransactions.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.fetchStatus = 'succeeded';
                 state.transactions = action.payload;
             })
             .addCase(fetchTransactions.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.error.message;
+                state.fetchStatus = 'failed';
+                const errorPayload = action.payload;
+                state.error =
+                    errorPayload?.message ||
+                    action.error.message ||
+                    'Невідома помилка...';
             })
 
             // add new transaction
+            .addCase(postTransaction.pending, (state) => {
+                state.postStatus = 'loading';
+            })
             .addCase(postTransaction.fulfilled, (state, action) => {
+                state.postStatus = 'succeeded';
                 state.transactions.push(action.payload);
             })
             .addCase(postTransaction.rejected, (state, action) => {
-                state.error = action.error.message;
+                state.postStatus = 'failed';
+                const errorPayload = action.payload;
+                state.error =
+                    errorPayload?.message ||
+                    action.error.message ||
+                    'Невідома помилка...';
             });
     },
 });
+
+export const fetchTransactions = createAsyncThunk(
+    'transactions/fetchTransactions',
+    async (_, { rejectWithValue }) => {
+        try {
+            return await transactionsApi.getTransactions();
+        } catch (e) {
+            const errorMessage = e.message || 'Помилка загрузки категорій...';
+            return rejectWithValue({
+                message: errorMessage,
+                type: e.type || 'ERROR',
+                status: e.status,
+            });
+        }
+    },
+);
+
+export const postTransaction = createAsyncThunk(
+    'transactions/postTransaction',
+    async (transactionData, { rejectWithValue }) => {
+        try {
+            return await transactionsApi.addTransaction(transactionData);
+        } catch (e) {
+            const errorMessage =
+                e.message || 'Помилка добавлення транзакції...';
+            return rejectWithValue({
+                message: errorMessage,
+                type: e.type || 'ERROR',
+                status: e.status,
+            });
+        }
+    },
+);
 
 export default transactionSlice;

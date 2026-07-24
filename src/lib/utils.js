@@ -1,19 +1,22 @@
-import { MONTH_LABELS } from '@/data';
+import { MONTH_LABELS, MONTH_NAMES } from '@/data';
 
-const MONTH_NAMES = [
-    'january',
-    'february',
-    'march',
-    'april',
-    'may',
-    'june',
-    'july',
-    'august',
-    'september',
-    'october',
-    'november',
-    'december',
-];
+const getExpenses = (transactions) =>
+    transactions.filter((el) => Number(el.amount) < 0);
+
+const getAbsAmount = (el) => Math.abs(Number(el.amount));
+
+export const formatCurrency = (value, { showSign = false } = {}) => {
+    const amount = Number(value) || 0;
+    const formatted = new Intl.NumberFormat('uk-UA', {
+        style: 'currency',
+        currency: 'UAH',
+        maximumFractionDigits: 0,
+    }).format(Math.abs(amount));
+
+    if (!showSign) return formatted;
+
+    return amount < 0 ? `-${formatted}` : `+${formatted}`;
+};
 
 export const generateMonthItems = (count = 12) => {
     const now = new Date();
@@ -34,20 +37,14 @@ export const generateMonthItems = (count = 12) => {
 };
 
 export const calculateTotalSpent = (transactions) =>
-    transactions
-        .filter((el) => el.amount < 0)
-        .reduce((acc, el) => acc + Math.abs(Number(el.amount)), 0);
+    getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
 export const calculateCategoryBreakdown = (transactions) => {
-    const expenses = transactions.filter((el) => Number(el.amount) < 0);
-    const totalSpent = expenses.reduce(
-        (acc, el) => acc + Math.abs(Number(el.amount)),
-        0,
-    );
+    const expenses = getExpenses(transactions);
+    const totalSpent = expenses.reduce((acc, el) => acc + getAbsAmount(el), 0);
 
     const categoryTotals = expenses.reduce((acc, el) => {
-        acc[el.category] =
-            (acc[el.category] || 0) + Math.abs(Number(el.amount));
+        acc[el.category] = (acc[el.category] || 0) + getAbsAmount(el);
         return acc;
     }, {});
 
@@ -73,13 +70,15 @@ export const getMonthlyData = (transactions = []) => {
         });
     }
 
+    const monthMap = new Map(months.map((m) => [m.key, m]));
+
     transactions.forEach((transaction) => {
         const amount = Number(transaction.amount) || 0;
         if (amount >= 0) return;
 
         const d = new Date(transaction.date);
         const key = `${d.getFullYear()}-${d.getMonth()}`;
-        const month = months.find((m) => m.key === key);
+        const month = monthMap.get(key);
         if (month) month.value += Math.abs(amount);
     });
 
@@ -93,20 +92,9 @@ export const formatDateToString = (date) => {
     return d.toISOString().split('T')[0];
 };
 
-const MONTH_VALUE_MAP = {
-    january: 0,
-    february: 1,
-    march: 2,
-    april: 3,
-    may: 4,
-    june: 5,
-    july: 6,
-    august: 7,
-    september: 8,
-    october: 9,
-    november: 10,
-    december: 11,
-};
+const MONTH_VALUE_MAP = Object.fromEntries(
+    MONTH_NAMES.map((name, index) => [name, index]),
+);
 
 export const parseMonthValue = (value) => {
     if (typeof value !== 'string' || !value.trim()) return null;

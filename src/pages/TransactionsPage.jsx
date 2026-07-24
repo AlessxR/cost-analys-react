@@ -1,46 +1,29 @@
-import { useState } from 'react';
-import { useSelector } from 'react-redux';
-
 import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react';
 
-import { Header } from '@/components/Header/Header';
-import { TransactionCategory } from '@/components/TransactionCategory';
-import { TransactionRow } from '@/components/TransactionRow';
-import { Preloader } from '@/components/Preloader';
-import { getTransactionsForMonth } from '@/lib/utils';
+import { useMonthFilter } from '@/hooks/useMonthFilter';
+
+import {
+    ErrorElement,
+    Header,
+    Preloader,
+    TransactionCategory,
+    TransactionRow,
+} from '@/components';
 
 export const TransactionsPage = () => {
-    const [activeFilter, setActiveFilter] = useState('all');
-    const [searchTerm, setSearchTerm] = useState('');
-    const { transactions, status, error } = useSelector(
-        (state) => state.transactions,
-    );
-    const { selectedMonth } = useSelector((state) => state.ui);
+    const {
+        activeFilter,
+        searchTerm,
+        fetchStatus,
+        categories,
+        monthTransactions,
+        filtered,
+        updateActiveFilter,
+        updateSearchTerm,
+    } = useMonthFilter();
 
-    const { categories } = useSelector((state) => state.categories);
-
-    if (status === 'loading') return <Preloader />;
-    if (status === 'failed') return <Text>Error... {error}</Text>;
-
-    const monthTransactions = getTransactionsForMonth(
-        transactions,
-        selectedMonth,
-    );
-
-    const categoryFiltered =
-        activeFilter === 'all'
-            ? monthTransactions
-            : monthTransactions.filter(
-                  (transaction) => transaction.category === activeFilter,
-              );
-
-    const filtered = searchTerm.trim()
-        ? categoryFiltered.filter((transaction) =>
-              transaction.title
-                  .toLowerCase()
-                  .includes(searchTerm.trim().toLowerCase()),
-          )
-        : categoryFiltered;
+    if (fetchStatus === 'loading') return <Preloader />;
+    if (fetchStatus === 'failed') return <ErrorElement />;
 
     return (
         <Box p={{ base: '4', md: '8' }}>
@@ -67,7 +50,7 @@ export const TransactionsPage = () => {
                             key={category.value}
                             category={category}
                             isActive={activeFilter === category.value}
-                            onClick={() => setActiveFilter(category.value)}
+                            onClick={() => updateActiveFilter(category.value)}
                         />
                     ))}
                 </Flex>
@@ -80,7 +63,7 @@ export const TransactionsPage = () => {
                     flex={{ base: '0 0 auto', md: '1' }}
                     value={searchTerm}
                     color="black"
-                    onChange={(e) => setSearchTerm(e.target.value)}
+                    onChange={(e) => updateSearchTerm(e.target.value)}
                 />
             </Flex>
 

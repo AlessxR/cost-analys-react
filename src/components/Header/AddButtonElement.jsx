@@ -1,5 +1,13 @@
 import { useRef, useState } from 'react';
 
+import { useDispatch } from 'react-redux';
+
+import { Controller, useForm } from 'react-hook-form';
+
+import { postTransaction } from '@/store/transaction-slice';
+
+import { formatDateToString } from '@/lib/utils';
+
 import {
     Button,
     Dialog,
@@ -11,11 +19,7 @@ import {
 } from '@chakra-ui/react';
 
 import { FiPlus } from 'react-icons/fi';
-import { SelectCategory } from '../SelectElement/SelectCategory';
-import { useDispatch } from 'react-redux';
-import { postTransaction } from '@/store/transaction-slice';
-import { formatDateToString } from '@/lib/utils';
-import { Controller, useForm } from 'react-hook-form';
+import { SelectCategory } from '..';
 
 export const AddButtonElement = () => {
     const ref = useRef();
@@ -37,15 +41,15 @@ export const AddButtonElement = () => {
         },
     });
 
-    const onSubmit = (data) => {
-        dispatch(
+    const onSubmit = async (data) => {
+        await dispatch(
             postTransaction({
                 title: data.description,
                 category: data.category,
                 amount: Number(data.summa),
                 date: formatDateToString(data.date),
             }),
-        );
+        ).unwrap();
 
         reset();
         setIsOpen(false);

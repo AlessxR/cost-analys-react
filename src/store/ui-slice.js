@@ -1,26 +1,14 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { MONTH_NAMES } from '@/data';
 
-const MONTH_NAMES = [
-    'january',
-    'february',
-    'march',
-    'april',
-    'may',
-    'june',
-    'july',
-    'august',
-    'september',
-    'october',
-    'november',
-    'december',
-];
-
-const now = new Date();
-const CURRENT_MONTH_VALUE = MONTH_NAMES[now.getMonth()] + now.getFullYear();
-
-const initialState = {
-    selectedMonth: CURRENT_MONTH_VALUE,
+const getCurrentMonthValue = () => {
+    const now = new Date();
+    return MONTH_NAMES[now.getMonth()] + now.getFullYear();
 };
+
+const initialState = () => ({
+    selectedMonth: getCurrentMonthValue(),
+});
 
 const uiSlice = createSlice({
     name: 'ui',
