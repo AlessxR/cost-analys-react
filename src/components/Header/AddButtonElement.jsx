@@ -46,7 +46,7 @@ export const AddButtonElement = () => {
             postTransaction({
                 title: data.description,
                 category: data.category,
-                amount: Number(data.summa),
+                amount: -Number(data.summa),
                 date: formatDateToString(data.date),
             }),
         ).unwrap();

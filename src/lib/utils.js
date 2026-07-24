@@ -86,28 +86,24 @@ export const getMonthlyData = (transactions = []) => {
 };
 
 export const formatDateToString = (date) => {
-    if (!date) return new Date().toISOString().split('T')[0];
-    const d = date instanceof Date ? date : new Date(date);
-    if (isNaN(d.getTime())) return new Date().toISOString().split('T')[0];
-    return d.toISOString().split('T')[0];
+    const d = new Date(date || Date.now());
+
+    return isNaN(d)
+        ? new Date().toISOString().split('T')[0]
+        : d.toISOString().split('T')[0];
 };
 
-const MONTH_VALUE_MAP = Object.fromEntries(
-    MONTH_NAMES.map((name, index) => [name, index]),
-);
-
 export const parseMonthValue = (value) => {
-    if (typeof value !== 'string' || !value.trim()) return null;
-    const lower = value.toLowerCase();
-    for (const [name, monthIndex] of Object.entries(MONTH_VALUE_MAP)) {
-        if (lower.startsWith(name)) {
-            const year = lower.slice(name.length);
-            if (/^\d{4}$/.test(year)) {
-                return { year: Number(year), monthIndex };
-            }
-        }
-    }
-    return null;
+    if (!value) return null;
+
+    const month = MONTH_NAMES.find((month) => value.startsWith(month));
+
+    if (!month) return null;
+
+    return {
+        monthIndex: MONTH_NAMES.indexOf(month),
+        year: Number(value.slice(month.length)),
+    };
 };
 
 export const getTransactionsForMonth = (transactions = [], monthValue) => {
