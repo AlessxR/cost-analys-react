@@ -1,5 +1,5 @@
-export { Dashboard } from './Dashboard/Dashboard';
 export { DashboardBreakDown } from './Dashboard/DashboardBreakdown';
+export { Dashboard } from './Dashboard/Dashboard';
 export { DashboardCard } from './Dashboard/DashboardCard';
 export { DashboardChart } from './Dashboard/DashboardChart';
 export { SectionTitle } from './Dashboard/SectionTitle';

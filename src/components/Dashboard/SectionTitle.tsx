@@ -1,6 +1,11 @@
 import { Text } from '@chakra-ui/react';
 
-export const SectionTitle = ({ children, extra }) => (
+type Props = {
+    children: React.ReactNode;
+    extra: string;
+};
+
+export const SectionTitle = ({ children, extra }: Props) => (
     <Text
         fontWeight="semibold"
         color="black"

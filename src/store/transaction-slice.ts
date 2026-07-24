@@ -1,16 +1,32 @@
 import { transactionsApi } from '@/services/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = {
+interface ITransactions {
+    id: string | number;
+    title: string;
+    category: string;
+    amount: number;
+    date: string;
+}
+
+interface IInitialState {
+    transactions: ITransactions[];
+    fetchStatus: string;
+    postStatus: string;
+    error: string | null;
+}
+
+const initialState: IInitialState = {
     transactions: [],
     fetchStatus: '',
     postStatus: '',
-    error: null,
+    error: '',
 };
 
 const transactionSlice = createSlice({
     name: 'transactions',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
             // get transactions

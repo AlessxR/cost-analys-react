@@ -3,7 +3,13 @@ import { useSelector } from 'react-redux';
 
 import { SelectElement } from '@/components';
 
-export const SelectCategory = ({ name, value, onValueChange }) => {
+type Props = {
+    name: string;
+    value: string;
+    onValueChange: () => void;
+};
+
+export const SelectCategory = ({ name, value, onValueChange }: Props) => {
     const { categories } = useSelector((state) => state.categories);
 
     const categoriesCollection = createListCollection({

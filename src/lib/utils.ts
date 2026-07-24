@@ -1,11 +1,19 @@
 import { MONTH_LABELS, MONTH_NAMES } from '@/data';
 
-const getExpenses = (transactions) =>
+type Transactions = {
+    id: string | number;
+    title: string;
+    category: string;
+    amount: number;
+    date: string;
+};
+
+const getExpenses = (transactions: Transactions[]) =>
     transactions.filter((el) => Number(el.amount) < 0);
 
-const getAbsAmount = (el) => Math.abs(Number(el.amount));
+const getAbsAmount = (el: Transactions) => Math.abs(Number(el.amount));
 
-export const formatCurrency = (value, { showSign = false } = {}) => {
+export const formatCurrency = (value: number, { showSign = false } = {}) => {
     const amount = Number(value) || 0;
     const formatted = new Intl.NumberFormat('uk-UA', {
         style: 'currency',
@@ -36,10 +44,10 @@ export const generateMonthItems = (count = 12) => {
     return items;
 };
 
-export const calculateTotalSpent = (transactions) =>
+export const calculateTotalSpent = (transactions: Transactions[]) =>
     getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
-export const calculateCategoryBreakdown = (transactions) => {
+export const calculateCategoryBreakdown = (transactions: Transactions[]) => {
     const expenses = getExpenses(transactions);
     const totalSpent = expenses.reduce((acc, el) => acc + getAbsAmount(el), 0);
 
@@ -85,7 +93,7 @@ export const getMonthlyData = (transactions = []) => {
     return months;
 };
 
-export const formatDateToString = (date) => {
+export const formatDateToString = (date: Date) => {
     if (!date) return new Date().toISOString().split('T')[0];
     const d = date instanceof Date ? date : new Date(date);
     if (isNaN(d.getTime())) return new Date().toISOString().split('T')[0];
@@ -96,7 +104,7 @@ const MONTH_VALUE_MAP = Object.fromEntries(
     MONTH_NAMES.map((name, index) => [name, index]),
 );
 
-export const parseMonthValue = (value) => {
+export const parseMonthValue = (value: string) => {
     if (typeof value !== 'string' || !value.trim()) return null;
     const lower = value.toLowerCase();
     for (const [name, monthIndex] of Object.entries(MONTH_VALUE_MAP)) {

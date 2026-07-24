@@ -4,10 +4,10 @@ import { RouterProvider } from 'react-router';
 import { Provider as ReduxProvider } from 'react-redux';
 import { Provider as ChakraProvider } from '@/components/ui/provider';
 
-import { router } from './router/router';
 import store from './store';
+import { router } from './router/router';
 
-createRoot(document.getElementById('root')).render(
+createRoot(document.getElementById('root')!).render(
     <ChakraProvider>
         <ReduxProvider store={store}>
             <StrictMode>

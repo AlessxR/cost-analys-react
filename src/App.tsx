@@ -1,10 +1,12 @@
-import { Sidebar } from './components/Sidebar';
-import { Box, Flex } from '@chakra-ui/react';
 import { useEffect } from 'react';
+import { Box, Flex } from '@chakra-ui/react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router';
+
 import { fetchTransactions } from './store/transaction-slice';
 import { fetchCategories } from './store/categories-slice';
+
+import { Sidebar } from './components';
 
 const App = () => {
     const dispatch = useDispatch();

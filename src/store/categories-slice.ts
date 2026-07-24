@@ -10,6 +10,7 @@ const initialState = {
 const categoriesSlice = createSlice({
     name: 'categories',
     initialState,
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchCategories.pending, (state) => {
