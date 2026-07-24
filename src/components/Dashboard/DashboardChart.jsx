@@ -6,7 +6,9 @@ import {
     Tooltip,
     XAxis,
 } from 'recharts';
+
 import { Box } from '@chakra-ui/react';
+
 import { formatCurrency, getMonthlyData } from '@/lib/utils';
 
 export const DashboardChart = ({ transactions }) => {

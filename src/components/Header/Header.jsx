@@ -1,6 +1,6 @@
 import { Flex, Heading } from '@chakra-ui/react';
-import { AddButtonElement } from './AddButtonElement';
-import { SelectMonth } from './SelectElement/SelectMonth';
+
+import { AddButtonElement, SelectMonth } from '..';
 
 export const Header = ({ titleHeader }) => (
     <Flex

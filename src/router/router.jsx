@@ -1,7 +1,8 @@
 import App from '@/App';
+
+import { MainPage, TransactionsPage } from '@/pages';
+
 import { NotFound } from '@/components/NotFound';
-import { MainPage } from '@/pages/MainPage/MainPage';
-import { TransactionsPage } from '@/pages/TransactionsPage/TransactionsPage';
 
 import { createBrowserRouter } from 'react-router';
 

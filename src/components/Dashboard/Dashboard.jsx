@@ -1,13 +1,17 @@
 import { Box, Grid, Heading } from '@chakra-ui/react';
+
 import { formatCurrency } from '@/lib/utils';
 
-import { DashboardCard } from './DashboardCard';
-import { DashboardBreakDown } from './DashboardBreakdown';
-import { DashboardChart } from './DashboardChart';
-import { Preloader } from '../Preloader';
-import { SectionTitle } from './SectionTitle';
-import { ErrorElement } from '../ErrorElement';
 import { useDashboard } from '@/hooks/useDashboard';
+
+import {
+    DashboardCard,
+    ErrorElement,
+    SectionTitle,
+    DashboardChart,
+    DashboardBreakDown,
+    Preloader,
+} from '..';
 
 const Card = ({ children, ...props }) => (
     <Box bg="white" borderRadius="xl" p={{ base: '4', md: '5' }} {...props}>

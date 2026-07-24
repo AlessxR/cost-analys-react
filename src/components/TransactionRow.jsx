@@ -1,4 +1,5 @@
 import { CATEGORY_COLORS } from '@/data';
+
 import { Badge, Flex, Text } from '@chakra-ui/react';
 
 export const TransactionRow = ({ date, title, category, amount }) => {

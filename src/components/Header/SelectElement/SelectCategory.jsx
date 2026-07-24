@@ -1,6 +1,7 @@
 import { createListCollection } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { SelectElement } from './SelectElement';
+
+import { SelectElement } from '@/components';
 
 export const SelectCategory = ({ name, value, onValueChange }) => {
     const { categories } = useSelector((state) => state.categories);

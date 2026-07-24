@@ -1,11 +1,14 @@
 import { Box, Flex, Heading, Input, Text } from '@chakra-ui/react';
 
-import { Header } from '@/components/Header/Header';
-import { TransactionCategory } from '@/components/TransactionCategory';
-import { TransactionRow } from '@/components/TransactionRow';
-import { Preloader } from '@/components/Preloader';
 import { useMonthFilter } from '@/hooks/useMonthFilter';
-import { ErrorElement } from '@/components/ErrorElement';
+
+import {
+    ErrorElement,
+    Header,
+    Preloader,
+    TransactionCategory,
+    TransactionRow,
+} from '@/components';
 
 export const TransactionsPage = () => {
     const {
