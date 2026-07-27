@@ -1,15 +1,13 @@
 export type Status = 'idle' | 'loading' | 'succeeded' | 'failed';
 
-export interface ITransaction {
-    id: string | number;
-    title: string;
-    category: string;
-    amount: number;
-    date: string;
-}
+export type {
+    ICategory,
+    IInitialCategories,
+    ICategoryBreakdown,
+} from './categories-types';
 
-export interface ICategoryBreakdown {
-    label: string;
-    sum: number;
-    percent: number;
-}
+export type {
+    ITransaction,
+    INewTransaction,
+    IInitialTransaction,
+} from './transactions-types';

@@ -1,12 +1,9 @@
 import { transactionsApi } from '@/services/api';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import {
-    IInitialTransactions,
-    ITransaction,
-    NewTransaction,
-} from './transaction.types';
 
-const initialState: IInitialTransactions = {
+import { IInitialTransaction, INewTransaction, ITransaction } from '@/types';
+
+const initialState: IInitialTransaction = {
     transactions: [],
     fetchStatus: 'idle',
     postStatus: 'idle',
@@ -68,12 +65,12 @@ export const fetchTransactions = createAsyncThunk<
 });
 
 export const postTransaction = createAsyncThunk<
-    NewTransaction,
-    NewTransaction,
+    ITransaction,
+    INewTransaction,
     { rejectValue: string }
 >(
     'transactions/postTransaction',
-    async (transactionData: NewTransaction, { rejectWithValue }) => {
+    async (transactionData: INewTransaction, { rejectWithValue }) => {
         try {
             return await transactionsApi.addTransaction(transactionData);
         } catch (e) {

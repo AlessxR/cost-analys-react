@@ -1,12 +1,11 @@
 import { useRef, useState } from 'react';
-
-import { useDispatch } from 'react-redux';
-
 import { Controller, useForm } from 'react-hook-form';
 
-import { postTransaction } from '@/store/transaction-slice/transaction-slice';
+import { postTransaction } from '@/store/transaction-slice';
 
 import { formatDateToString } from '@/lib/utils';
+
+import { FiPlus } from 'react-icons/fi';
 
 import {
     Button,
@@ -18,13 +17,21 @@ import {
     Text,
 } from '@chakra-ui/react';
 
-import { FiPlus } from 'react-icons/fi';
 import { SelectCategory } from '..';
-import { useAppDispatch } from '@/store/hooks';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
+
+type FormValues = {
+    id: number;
+    title: string;
+    category: string;
+    amount: string | number;
+    date: string;
+};
 
 export const AddButtonElement = () => {
-    const ref = useRef<HTMLInputElement | null>(null);
     const dispatch = useAppDispatch();
+    const { postStatus } = useAppSelector((state) => state.transactions);
+    const ref = useRef<HTMLInputElement | null>(null);
     const [isOpen, setIsOpen] = useState(false);
 
     const {
@@ -33,21 +40,21 @@ export const AddButtonElement = () => {
         control,
         reset,
         formState: { errors },
-    } = useForm({
+    } = useForm<FormValues>({
         defaultValues: {
-            description: '',
+            title: '',
             category: '',
-            summa: '',
+            amount: '',
             date: '',
         },
     });
 
-    const onSubmit = async (data) => {
+    const onSubmit = async (data: FormValues) => {
         await dispatch(
             postTransaction({
-                title: data.description,
+                title: data.title,
                 category: data.category,
-                amount: -Number(data.summa),
+                amount: -Number(data.amount),
                 date: formatDateToString(data.date),
             }),
         ).unwrap();
@@ -93,18 +100,18 @@ export const AddButtonElement = () => {
                                 <Stack gap="4">
                                     <Field.Root
                                         required
-                                        invalid={!!errors.description}
+                                        invalid={!!errors.title}
                                     >
                                         <Field.Label>Опис</Field.Label>
                                         <Input
                                             placeholder="Опис покупки..."
-                                            {...register('description', {
+                                            {...register('title', {
                                                 required: 'Вкажіть опис',
                                             })}
                                         />
-                                        {errors.description && (
+                                        {errors.title && (
                                             <Field.ErrorText>
-                                                {errors.description.message}
+                                                {errors.title.message}
                                             </Field.ErrorText>
                                         )}
                                     </Field.Root>
@@ -146,20 +153,20 @@ export const AddButtonElement = () => {
 
                                     <Field.Root
                                         required
-                                        invalid={!!errors.summa}
+                                        invalid={!!errors.amount}
                                     >
                                         <Field.Label>Сума, ₴</Field.Label>
                                         <Input
                                             type="number"
                                             placeholder="0"
-                                            {...register('summa', {
+                                            {...register('amount', {
                                                 required: 'Вкажіть суму',
                                                 valueAsNumber: true,
                                             })}
                                         />
-                                        {errors.summa && (
+                                        {errors.amount && (
                                             <Field.ErrorText>
-                                                {errors.summa.message}
+                                                {errors.amount.message}
                                             </Field.ErrorText>
                                         )}
                                     </Field.Root>
@@ -183,7 +190,11 @@ export const AddButtonElement = () => {
                                     Скасувати
                                 </Button>
                             </Dialog.ActionTrigger>
-                            <Button form="add-operation-form" type="submit">
+                            <Button
+                                form="add-operation-form"
+                                type="submit"
+                                disabled={postStatus === 'loading'}
+                            >
                                 Зберегти
                             </Button>
                         </Dialog.Footer>

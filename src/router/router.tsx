@@ -1,10 +1,9 @@
+import { createBrowserRouter } from 'react-router';
+
 import App from '@/App';
-
 import { MainPage, TransactionsPage } from '@/pages';
-
 import { NotFound } from '@/components/NotFound';
 
-import { createBrowserRouter } from 'react-router';
 
 export const router = createBrowserRouter([
     {

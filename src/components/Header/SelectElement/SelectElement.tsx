@@ -1,12 +1,16 @@
-import { ICategory } from '@/store/categories-slice/categories.types';
-import { Portal, Select } from '@chakra-ui/react';
+import {
+    ListCollection,
+    Portal,
+    Select,
+    SelectValueChangeDetails,
+} from '@chakra-ui/react';
 
 type Props = {
-    data: ICategory[];
+    data: ListCollection;
     selectPlaceholder: string;
     name: string;
-    value: string;
-    onValueChange: () => void;
+    value: string[];
+    onValueChange: (details: SelectValueChangeDetails<any>) => void;
 };
 
 export const SelectElement = ({

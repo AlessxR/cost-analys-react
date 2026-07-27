@@ -1,6 +1,4 @@
-import { Dashboard } from '@/components/Dashboard/Dashboard';
-import { Header } from '@/components/Header/Header';
-
+import { Dashboard, Header } from '@/components';
 import { Box } from '@chakra-ui/react';
 
 export const MainPage = () => (

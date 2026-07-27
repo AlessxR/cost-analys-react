@@ -80,7 +80,9 @@ export const Dashboard = () => {
                         </Card>
 
                         <Card>
-                            <SectionTitle totalSpent={totalSpent}>
+                            <SectionTitle
+                                totalSpent={formatCurrency(totalSpent)}
+                            >
                                 Витрати за категоріями
                             </SectionTitle>
                             <DashboardBreakDown

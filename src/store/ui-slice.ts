@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 import { MONTH_NAMES } from '@/data';
 
 const getCurrentMonthValue = () => {
@@ -6,9 +7,9 @@ const getCurrentMonthValue = () => {
     return MONTH_NAMES[now.getMonth()] + now.getFullYear();
 };
 
-const initialState = () => ({
+const initialState = {
     selectedMonth: getCurrentMonthValue(),
-});
+};
 
 const uiSlice = createSlice({
     name: 'ui',

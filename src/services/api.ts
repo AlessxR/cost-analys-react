@@ -1,3 +1,4 @@
+import { INewTransaction } from '@/types';
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
@@ -21,7 +22,7 @@ export const transactionsApi = {
         return response.data;
     },
 
-    async addTransaction(transactionData) {
+    async addTransaction(transactionData: INewTransaction) {
         const response = await instance.post('/transactions', transactionData);
         return response.data;
     },

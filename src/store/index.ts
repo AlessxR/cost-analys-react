@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import transactionSlice from './transaction-slice/transaction-slice';
-import categoriesSlice from './categories-slice/categories-slice';
+import transactionSlice from './transaction-slice';
+import categoriesSlice from './categories-slice';
 import uiSlice from './ui-slice';
 
 const store = configureStore({

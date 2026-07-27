@@ -1,9 +1,9 @@
 import { formatCurrency } from '@/lib/utils';
-import { CategoryBreakdown } from '@/types';
+import type { ICategoryBreakdown } from '@/types';
 import { Box, HStack, Text, Flex } from '@chakra-ui/react';
 
 type Props = {
-    categoryBreakdown: CategoryBreakdown[];
+    categoryBreakdown: ICategoryBreakdown[];
 };
 
 export const DashboardBreakDown = ({ categoryBreakdown }: Props) => (

@@ -1,4 +1,4 @@
-import { Status } from '@/types';
+import { Status } from '.';
 
 export interface ICategory {
     label: string;
@@ -8,5 +8,11 @@ export interface ICategory {
 export interface IInitialCategories {
     categories: ICategory[];
     status: Status;
-    error: string | null;
+    error: null | string;
+}
+
+export interface ICategoryBreakdown {
+    label: string;
+    sum: number;
+    percent: number;
 }

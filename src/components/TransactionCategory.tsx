@@ -1,13 +1,20 @@
+import { ICategory } from '@/types/categories-types';
 import { Box } from '@chakra-ui/react';
 
-export const TransactionCategory = ({ category, isActive, onClick }) => (
+type Props = {
+    category: ICategory;
+    isActive: boolean;
+    onClick: () => void;
+};
+
+export const TransactionCategory = ({ category, isActive, onClick }: Props) => (
     <Box
         role="button"
         tabIndex={0}
         onKeyDown={(e) => {
             if (e.key === 'Enter' || e.key === ' ') {
                 e.preventDefault();
-                onClick?.(e);
+                onClick?.();
             }
         }}
         onClick={onClick}

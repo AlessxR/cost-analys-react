@@ -2,8 +2,14 @@ import { CATEGORY_COLORS } from '@/data';
 
 import { Badge, Flex, Text } from '@chakra-ui/react';
 
-export const TransactionRow = ({ date, title, category, amount }) => {
-    const isPositive = amount > 0;
+type Props = {
+    date: string;
+    title: string;
+    category: string;
+    amount: number;
+};
+
+export const TransactionRow = ({ date, title, category, amount }: Props) => {
     const badgeColors = CATEGORY_COLORS[category] ?? {
         bg: 'gray.100',
         color: 'gray.600',
@@ -77,14 +83,13 @@ export const TransactionRow = ({ date, title, category, amount }) => {
                     </Badge>
                 </Flex>
                 <Text
-                    color={isPositive ? 'green.600' : 'red.500'}
                     fontWeight="semibold"
                     fontSize="sm"
                     whiteSpace="nowrap"
                     flexShrink="0"
+                    color="red"
                 >
-                    {isPositive ? '+' : '-'}₴
-                    {Math.abs(amount).toLocaleString('uk-UA')}
+                    -₴{Math.abs(amount).toLocaleString('uk-UA')}
                 </Text>
             </Flex>
         </Flex>

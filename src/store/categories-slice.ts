@@ -1,8 +1,8 @@
-import { categoriesApi } from '@/services/api';
-
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-import { ICategory, IInitialCategories } from './categories.types';
+import { categoriesApi } from '@/services/api';
+
+import { ICategory, IInitialCategories } from '@/types';
 
 const initialState: IInitialCategories = {
     categories: [],
@@ -25,7 +25,6 @@ const categoriesSlice = createSlice({
             })
             .addCase(fetchCategories.rejected, (state, action) => {
                 state.status = 'failed';
-                const errorPayload = action.payload;
                 state.error =
                     action.payload ??
                     action.error.message ??

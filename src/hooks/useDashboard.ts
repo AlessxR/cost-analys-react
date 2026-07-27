@@ -1,21 +1,21 @@
 import { useMemo } from 'react';
 
+import { useAppSelector } from '@/store/hooks';
+
 import {
     calculateCategoryBreakdown,
     calculateTotalSpent,
     getTransactionsForMonth,
 } from '@/lib/utils';
 
-import { useAppSelector } from '@/store/hooks';
-
-import { ICategoryBreakdown, ITransaction } from '@/types';
+import { ICategoryBreakdown, ITransaction, Status } from '@/types';
 
 type DashboardResult = {
     transactions: ITransaction[];
     selectedMonth: string;
     categoryBreakdown: ReturnType<typeof calculateCategoryBreakdown>;
     monthTransactions: ITransaction[];
-    fetchStatus: string;
+    fetchStatus: Status;
     totalSpent: number;
     topCategory: ICategoryBreakdown | null;
 };

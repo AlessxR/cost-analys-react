@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react';
-import { useSelector } from 'react-redux';
+
 import { getTransactionsForMonth } from '@/lib/utils';
+
 import { useAppSelector } from '@/store/hooks';
 
 export const useMonthFilter = () => {

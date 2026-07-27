@@ -1,13 +1,12 @@
-import { createListCollection } from '@chakra-ui/react';
-import { useSelector } from 'react-redux';
+import { createListCollection, ListCollection } from '@chakra-ui/react';
 
 import { SelectElement } from '@/components';
 import { useAppSelector } from '@/store/hooks';
 
 type Props = {
     name: string;
-    value: string;
-    onValueChange: () => void;
+    value: string[];
+    onValueChange: (value: string) => void;
 };
 
 export const SelectCategory = ({ name, value, onValueChange }: Props) => {

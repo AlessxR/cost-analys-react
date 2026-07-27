@@ -68,12 +68,13 @@ export const Sidebar = () => {
                     </ChakraText>
                     <IconButton
                         aria-label="Закрити меню"
-                        icon={<FiX />}
                         display={{ base: 'flex', md: 'none' }}
                         size="sm"
                         variant="ghost"
                         onClick={() => setIsOpen(false)}
-                    />
+                    >
+                        <FiX />
+                    </IconButton>
                 </HStack>
                 <Flex direction="column" gap="1">
                     {NAV_ITEMS.map((item) => (

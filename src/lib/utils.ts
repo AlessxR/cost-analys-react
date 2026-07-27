@@ -10,7 +10,7 @@ const getAbsAmount = (el: ITransaction) => Math.abs(Number(el.amount));
 export const calculateTotalSpent = (transactions: ITransaction[]) =>
     getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
-export const formatCurrency = (value: number, { showSign = false } = {}) => {
+export const formatCurrency = (value: number) => {
     const amount = Number(value) || 0;
 
     const formatted = new Intl.NumberFormat('uk-UA', {
@@ -19,9 +19,7 @@ export const formatCurrency = (value: number, { showSign = false } = {}) => {
         maximumFractionDigits: 0,
     }).format(Math.abs(amount));
 
-    if (!showSign) return formatted;
-
-    return `${formatted}`;
+    return formatted;
 };
 
 export const generateMonthItems = (count = 12) => {
@@ -93,7 +91,7 @@ export const getMonthlyData = (transactions: ITransaction[] = []) => {
     return months;
 };
 
-export const formatDateToString = (date: Date) => {
+export const formatDateToString = (date: string | Date) => {
     if (!date) return new Date().toISOString().split('T')[0];
     const d = date instanceof Date ? date : new Date(date);
     if (isNaN(d.getTime())) return new Date().toISOString().split('T')[0];

@@ -18,12 +18,14 @@ export const TransactionsPage = () => {
         categories,
         monthTransactions,
         filtered,
+        error,
         updateActiveFilter,
         updateSearchTerm,
     } = useMonthFilter();
 
     if (fetchStatus === 'loading') return <Preloader />;
     if (fetchStatus === 'failed') return <ErrorElement />;
+    if (error) return <ErrorElement />;
 
     return (
         <Box p={{ base: '4', md: '8' }}>

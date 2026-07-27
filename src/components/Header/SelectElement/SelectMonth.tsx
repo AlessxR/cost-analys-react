@@ -1,5 +1,4 @@
 import { createListCollection } from '@chakra-ui/react';
-import { useDispatch, useSelector } from 'react-redux';
 
 import { uiActions } from '@/store/ui-slice';
 
@@ -12,7 +11,11 @@ const months = createListCollection({
     items: generateMonthItems(12),
 });
 
-export const SelectMonth = ({ name }) => {
+type Props = {
+    name: string;
+};
+
+export const SelectMonth = ({ name }: Props) => {
     const dispatch = useAppDispatch();
     const { selectedMonth } = useAppSelector((state) => state.ui);
 

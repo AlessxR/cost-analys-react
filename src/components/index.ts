@@ -1,4 +1,4 @@
-export { DashboardBreakDown } from './Dashboard/DashboardBreakdown';
+export { DashboardBreakDown } from './Dashboard/DashboardBreakDown';
 export { Dashboard } from './Dashboard/Dashboard';
 export { DashboardCard } from './Dashboard/DashboardCard';
 export { DashboardChart } from './Dashboard/DashboardChart';
