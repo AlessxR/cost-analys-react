@@ -1,9 +1,12 @@
 import { categoriesApi } from '@/services/api';
+
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
-const initialState = {
+import { ICategory, IInitialCategories } from './categories.types';
+
+const initialState: IInitialCategories = {
     categories: [],
-    status: '',
+    status: 'idle',
     error: null,
 };
 
@@ -24,27 +27,25 @@ const categoriesSlice = createSlice({
                 state.status = 'failed';
                 const errorPayload = action.payload;
                 state.error =
-                    errorPayload?.message ||
-                    action.error.message ||
+                    action.payload ??
+                    action.error.message ??
                     'Невідома помилка...';
             });
     },
 });
 
-export const fetchCategories = createAsyncThunk(
-    'categories/fetchCategories',
-    async (_, { rejectWithValue }) => {
-        try {
-            return await categoriesApi.getCategories();
-        } catch (e) {
-            const errorMessage = e.message || 'Помилка завантаження категорій';
-            return rejectWithValue({
-                message: errorMessage,
-                type: e.type || 'ERROR',
-                status: e.status,
-            });
-        }
-    },
-);
+export const fetchCategories = createAsyncThunk<
+    ICategory[],
+    void,
+    { rejectValue: string }
+>('categories/fetchCategories', async (_, { rejectWithValue }) => {
+    try {
+        return await categoriesApi.getCategories();
+    } catch (e) {
+        return rejectWithValue(
+            e instanceof Error ? e.message : 'Помилка отримання категорій...',
+        );
+    }
+});
 
 export default categoriesSlice;

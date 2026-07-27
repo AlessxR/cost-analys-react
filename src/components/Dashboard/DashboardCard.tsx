@@ -1,6 +1,12 @@
 import { Card, Text } from '@chakra-ui/react';
 
-export const DashboardCard = ({ title, value, subtitle }) => (
+type Props = {
+    title: string;
+    value: string;
+    subtitle?: string;
+};
+
+export const DashboardCard = ({ title, value, subtitle }: Props) => (
     <Card.Root bgColor="white" border="none">
         <Card.Body>
             <Text fontSize="sm" color="gray.500" mb="2">

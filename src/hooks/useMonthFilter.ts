@@ -1,16 +1,18 @@
 import { useMemo, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { getTransactionsForMonth } from '@/lib/utils';
+import { useAppSelector } from '@/store/hooks';
 
 export const useMonthFilter = () => {
     const [activeFilter, setActiveFilter] = useState('all');
     const [searchTerm, setSearchTerm] = useState('');
 
-    const { transactions, fetchStatus, error } = useSelector(
+    const { transactions, fetchStatus, error } = useAppSelector(
         (state) => state.transactions,
     );
-    const { selectedMonth } = useSelector((state) => state.ui);
-    const { categories } = useSelector((state) => state.categories);
+
+    const { selectedMonth } = useAppSelector((state) => state.ui);
+    const { categories } = useAppSelector((state) => state.categories);
 
     const monthTransactions = useMemo(
         () => getTransactionsForMonth(transactions, selectedMonth),
@@ -39,8 +41,8 @@ export const useMonthFilter = () => {
         [categoryFiltered, searchTerm],
     );
 
-    const updateSearchTerm = (value) => setSearchTerm(value);
-    const updateActiveFilter = (filter) => setActiveFilter(filter);
+    const updateSearchTerm = (value: string) => setSearchTerm(value);
+    const updateActiveFilter = (filter: string) => setActiveFilter(filter);
 
     return {
         activeFilter,

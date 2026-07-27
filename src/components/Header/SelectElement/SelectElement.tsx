@@ -1,4 +1,13 @@
+import { ICategory } from '@/store/categories-slice/categories.types';
 import { Portal, Select } from '@chakra-ui/react';
+
+type Props = {
+    data: ICategory[];
+    selectPlaceholder: string;
+    name: string;
+    value: string;
+    onValueChange: () => void;
+};
 
 export const SelectElement = ({
     data,
@@ -6,7 +15,7 @@ export const SelectElement = ({
     name,
     value,
     onValueChange,
-}) => (
+}: Props) => (
     <Select.Root
         collection={data}
         size="sm"

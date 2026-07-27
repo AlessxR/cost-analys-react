@@ -2,7 +2,11 @@ import { Flex, Heading } from '@chakra-ui/react';
 
 import { AddButtonElement, SelectMonth } from '..';
 
-export const Header = ({ titleHeader }) => (
+type Props = {
+    titleHeader: string;
+};
+
+export const Header = ({ titleHeader }: Props) => (
     <Flex
         direction={{ base: 'column', md: 'row' }}
         justify="space-between"

@@ -1,20 +1,18 @@
 import { MONTH_LABELS, MONTH_NAMES } from '@/data';
 
-type Transactions = {
-    id: string | number;
-    title: string;
-    category: string;
-    amount: number;
-    date: string;
-};
+import { ICategoryBreakdown, ITransaction } from '@/types';
 
-const getExpenses = (transactions: Transactions[]) =>
+const getExpenses = (transactions: ITransaction[]) =>
     transactions.filter((el) => Number(el.amount) < 0);
 
-const getAbsAmount = (el: Transactions) => Math.abs(Number(el.amount));
+const getAbsAmount = (el: ITransaction) => Math.abs(Number(el.amount));
+
+export const calculateTotalSpent = (transactions: ITransaction[]) =>
+    getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
 export const formatCurrency = (value: number, { showSign = false } = {}) => {
     const amount = Number(value) || 0;
+
     const formatted = new Intl.NumberFormat('uk-UA', {
         style: 'currency',
         currency: 'UAH',
@@ -23,7 +21,7 @@ export const formatCurrency = (value: number, { showSign = false } = {}) => {
 
     if (!showSign) return formatted;
 
-    return amount < 0 ? `-${formatted}` : `+${formatted}`;
+    return `${formatted}`;
 };
 
 export const generateMonthItems = (count = 12) => {
@@ -44,17 +42,19 @@ export const generateMonthItems = (count = 12) => {
     return items;
 };
 
-export const calculateTotalSpent = (transactions: Transactions[]) =>
-    getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
-
-export const calculateCategoryBreakdown = (transactions: Transactions[]) => {
+export const calculateCategoryBreakdown = (
+    transactions: ITransaction[],
+): ICategoryBreakdown[] => {
     const expenses = getExpenses(transactions);
     const totalSpent = expenses.reduce((acc, el) => acc + getAbsAmount(el), 0);
 
-    const categoryTotals = expenses.reduce((acc, el) => {
-        acc[el.category] = (acc[el.category] || 0) + getAbsAmount(el);
-        return acc;
-    }, {});
+    const categoryTotals = expenses.reduce<Record<string, number>>(
+        (acc, el) => {
+            acc[el.category] = (acc[el.category] || 0) + getAbsAmount(el);
+            return acc;
+        },
+        {},
+    );
 
     return Object.entries(categoryTotals)
         .map(([label, sum]) => ({
@@ -65,7 +65,7 @@ export const calculateCategoryBreakdown = (transactions: Transactions[]) => {
         .sort((a, b) => b.sum - a.sum);
 };
 
-export const getMonthlyData = (transactions = []) => {
+export const getMonthlyData = (transactions: ITransaction[] = []) => {
     const now = new Date();
     const months = [];
 
@@ -118,7 +118,10 @@ export const parseMonthValue = (value: string) => {
     return null;
 };
 
-export const getTransactionsForMonth = (transactions = [], monthValue) => {
+export const getTransactionsForMonth = (
+    transactions: ITransaction[] = [],
+    monthValue: string,
+) => {
     const parsed = parseMonthValue(monthValue);
     if (!parsed) return [];
 

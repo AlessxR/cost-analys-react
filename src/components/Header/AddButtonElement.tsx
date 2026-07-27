@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { Controller, useForm } from 'react-hook-form';
 
-import { postTransaction } from '@/store/transaction-slice';
+import { postTransaction } from '@/store/transaction-slice/transaction-slice';
 
 import { formatDateToString } from '@/lib/utils';
 
@@ -20,10 +20,11 @@ import {
 
 import { FiPlus } from 'react-icons/fi';
 import { SelectCategory } from '..';
+import { useAppDispatch } from '@/store/hooks';
 
 export const AddButtonElement = () => {
-    const ref = useRef();
-    const dispatch = useDispatch();
+    const ref = useRef<HTMLInputElement | null>(null);
+    const dispatch = useAppDispatch();
     const [isOpen, setIsOpen] = useState(false);
 
     const {

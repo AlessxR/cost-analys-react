@@ -10,8 +10,13 @@ import {
 import { Box } from '@chakra-ui/react';
 
 import { formatCurrency, getMonthlyData } from '@/lib/utils';
+import { ITransaction } from '@/types';
 
-export const DashboardChart = ({ transactions }) => {
+type Props = {
+    transactions: ITransaction[];
+};
+
+export const DashboardChart = ({ transactions }: Props) => {
     const data = getMonthlyData(transactions);
 
     return (

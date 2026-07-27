@@ -1,16 +1,30 @@
+import { useMemo } from 'react';
+
 import {
     calculateCategoryBreakdown,
     calculateTotalSpent,
     getTransactionsForMonth,
 } from '@/lib/utils';
-import { useMemo } from 'react';
-import { useSelector } from 'react-redux';
 
-export const useDashboard = () => {
-    const { transactions, fetchStatus } = useSelector(
+import { useAppSelector } from '@/store/hooks';
+
+import { ICategoryBreakdown, ITransaction } from '@/types';
+
+type DashboardResult = {
+    transactions: ITransaction[];
+    selectedMonth: string;
+    categoryBreakdown: ReturnType<typeof calculateCategoryBreakdown>;
+    monthTransactions: ITransaction[];
+    fetchStatus: string;
+    totalSpent: number;
+    topCategory: ICategoryBreakdown | null;
+};
+
+export function useDashboard(): DashboardResult {
+    const { transactions, fetchStatus } = useAppSelector(
         (state) => state.transactions,
     );
-    const { selectedMonth } = useSelector((state) => state.ui);
+    const { selectedMonth } = useAppSelector((state) => state.ui);
 
     const monthTransactions = useMemo(
         () => getTransactionsForMonth(transactions, selectedMonth),
@@ -27,7 +41,7 @@ export const useDashboard = () => {
         [monthTransactions],
     );
 
-    const topCategory = categoryBreakdown[0];
+    const topCategory = categoryBreakdown[0] ?? null;
 
     return {
         transactions,
@@ -38,4 +52,4 @@ export const useDashboard = () => {
         totalSpent,
         topCategory,
     };
-};
+}

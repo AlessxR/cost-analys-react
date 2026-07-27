@@ -2,10 +2,10 @@ import { Text } from '@chakra-ui/react';
 
 type Props = {
     children: React.ReactNode;
-    extra: string;
+    totalSpent: number | string;
 };
 
-export const SectionTitle = ({ children, extra }: Props) => (
+export const SectionTitle = ({ children, totalSpent }: Props) => (
     <Text
         fontWeight="semibold"
         color="black"
@@ -20,7 +20,7 @@ export const SectionTitle = ({ children, extra }: Props) => (
             color="gray.500"
             fontSize={{ base: 'xs', md: 'sm' }}
         >
-            {extra}
+            {totalSpent}
         </Text>
     </Text>
 );

@@ -2,6 +2,7 @@ import { createListCollection } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 
 import { SelectElement } from '@/components';
+import { useAppSelector } from '@/store/hooks';
 
 type Props = {
     name: string;
@@ -10,7 +11,7 @@ type Props = {
 };
 
 export const SelectCategory = ({ name, value, onValueChange }: Props) => {
-    const { categories } = useSelector((state) => state.categories);
+    const { categories } = useAppSelector((state) => state.categories);
 
     const categoriesCollection = createListCollection({
         items: categories ?? [],

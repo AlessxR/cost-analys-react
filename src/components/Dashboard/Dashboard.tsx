@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 import { Box, Grid, Heading } from '@chakra-ui/react';
 
 import { formatCurrency } from '@/lib/utils';
@@ -13,7 +15,11 @@ import {
     Preloader,
 } from '..';
 
-const Card = ({ children, ...props }) => (
+type Props = {
+    children: ReactNode;
+};
+
+const Card = ({ children, ...props }: Props) => (
     <Box bg="white" borderRadius="xl" p={{ base: '4', md: '5' }} {...props}>
         {children}
     </Box>
@@ -64,7 +70,9 @@ export const Dashboard = () => {
                         gap="4"
                     >
                         <Card>
-                            <SectionTitle extra={formatCurrency(totalSpent)}>
+                            <SectionTitle
+                                totalSpent={formatCurrency(totalSpent)}
+                            >
                                 Динаміка за 6 місяців
                             </SectionTitle>
 
@@ -72,7 +80,7 @@ export const Dashboard = () => {
                         </Card>
 
                         <Card>
-                            <SectionTitle extra={totalSpent}>
+                            <SectionTitle totalSpent={totalSpent}>
                                 Витрати за категоріями
                             </SectionTitle>
                             <DashboardBreakDown

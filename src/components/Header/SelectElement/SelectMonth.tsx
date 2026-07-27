@@ -6,14 +6,15 @@ import { uiActions } from '@/store/ui-slice';
 import { generateMonthItems } from '@/lib/utils';
 
 import { SelectElement } from '@/components';
+import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 const months = createListCollection({
     items: generateMonthItems(12),
 });
 
 export const SelectMonth = ({ name }) => {
-    const dispatch = useDispatch();
-    const { selectedMonth } = useSelector((state) => state.ui);
+    const dispatch = useAppDispatch();
+    const { selectedMonth } = useAppSelector((state) => state.ui);
 
     return (
         <SelectElement
