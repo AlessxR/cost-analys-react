@@ -1,0 +1,11 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`ErrorElement > should match snapshot 1`] = `
+<DocumentFragment>
+  <h2
+    class="chakra-heading css-eprwor"
+  >
+    Помилка...
+  </h2>
+</DocumentFragment>
+`;
