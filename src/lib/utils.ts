@@ -1,4 +1,4 @@
-import { MONTH_LABELS, MONTH_NAMES } from '@/data';
+import { MONTH_LABELS, MONTH_NAMES, MONTH_NAMES_UA } from '@/data';
 
 import { ICategoryBreakdown, ITransaction } from '@/types';
 
@@ -29,10 +29,10 @@ export const generateMonthItems = (count = 12) => {
     for (let i = 0; i < count; i++) {
         const date = new Date(now.getFullYear(), now.getMonth() - i, 1);
         const monthIndex = date.getMonth();
-        const monthName = MONTH_NAMES[monthIndex];
         const year = date.getFullYear();
-        const value = `${monthName}${year}`;
-        const label = `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`;
+
+        const value = `${MONTH_NAMES[monthIndex]}${year}`;
+        const label = `${MONTH_NAMES_UA[monthIndex]} ${year}`;
 
         items.push({ label, value });
     }
@@ -103,17 +103,20 @@ const MONTH_VALUE_MAP = Object.fromEntries(
 );
 
 export const parseMonthValue = (value: string) => {
-    if (typeof value !== 'string' || !value.trim()) return null;
-    const lower = value.toLowerCase();
-    for (const [name, monthIndex] of Object.entries(MONTH_VALUE_MAP)) {
-        if (lower.startsWith(name)) {
-            const year = lower.slice(name.length);
-            if (/^\d{4}$/.test(year)) {
-                return { year: Number(year), monthIndex };
-            }
-        }
-    }
-    return null;
+    if (typeof value !== 'string') return null;
+
+    const match = value
+        .trim()
+        .toLowerCase()
+        .match(/^([a-z]+)(\d{4})$/);
+    if (!match) return null;
+
+    const [, name, year] = match;
+    const monthIndex = MONTH_VALUE_MAP[name];
+
+    if (monthIndex === undefined) return null;
+
+    return { year: Number(year), monthIndex };
 };
 
 export const getTransactionsForMonth = (

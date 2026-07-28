@@ -17,6 +17,21 @@ export const MONTH_LABELS = [
     'Гру',
 ];
 
+export const MONTH_NAMES_UA = [
+    'Січень',
+    'Лютий',
+    'Березень',
+    'Квітень',
+    'Травень',
+    'Червень',
+    'Липень',
+    'Серпень',
+    'Вересень',
+    'Жовтень',
+    'Листопад',
+    'Грудень',
+];
+
 export const MONTH_NAMES = [
     'january',
     'february',
