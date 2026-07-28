@@ -10,6 +10,10 @@ const getAbsAmount = (el: ITransaction) => Math.abs(el.amount);
 export const calculateTotalSpent = (transactions: ITransaction[]) =>
     getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
+const MONTH_VALUE_MAP = Object.fromEntries(
+    MONTH_NAMES.map((name, index) => [name, index]),
+);
+
 export const formatCurrency = (value: number) => {
     const amount = value || 0;
 
