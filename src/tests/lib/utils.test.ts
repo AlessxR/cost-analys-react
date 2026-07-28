@@ -6,10 +6,10 @@ import {
     getMonthlyData,
     getTransactionsForMonth,
     parseMonthValue,
-} from './utils';
+} from '../../lib/utils';
 
 describe('generateMonthItems', () => {
-    it('генерація місяців з переданим аргументом', () => {
+    it('should generate a list of months when a count argument is passed', () => {
         expect(generateMonthItems(1)).toEqual([
             {
                 label: 'Липень 2026',
@@ -18,31 +18,31 @@ describe('generateMonthItems', () => {
         ]);
     });
 
-    it('генерація місяців без переданого аргумента', () => {
+    it('should return an empty array when no count argument is passed', () => {
         expect(generateMonthItems(0)).toEqual([]);
     });
 });
 
 describe('formatCurrency', () => {
-    it('форматує 1500 в 1 500 ₴', () => {
+    it('should format 1500 as 1 500 ₴', () => {
         expect(formatCurrency(1500)).toMatch(/1.500.₴/);
     });
 
-    it('форматує 0 в 0 ₴', () => {
+    it('should format 0 as 0 ₴', () => {
         expect(formatCurrency(0)).toMatch(/0.₴/);
     });
 
-    it('форматування -1555 в 1 555 ₴', () => {
+    it('should format -1555 as 1 555 ₴', () => {
         expect(formatCurrency(-1555)).toMatch(/1.555.₴/);
     });
 });
 
 describe('calculateCategoryBreakdown', () => {
-    it('підрахунок витрат за місяці без переданого аргументу', () => {
+    it('should return an empty array when no transactions are passed', () => {
         expect(calculateCategoryBreakdown([])).toEqual([]);
     });
 
-    it('підрахунок з 1 категорією', () => {
+    it('should calculate the breakdown for a single category', () => {
         const transactions = [
             {
                 id: '1',
@@ -58,7 +58,7 @@ describe('calculateCategoryBreakdown', () => {
         expect(result).toEqual([{ label: 'Продукти', sum: 100, percent: 100 }]);
     });
 
-    it('підрахунок з більше 1', () => {
+    it('should calculate the breakdown for more than one category', () => {
         const transactions = [
             {
                 id: '1',
@@ -86,7 +86,7 @@ describe('calculateCategoryBreakdown', () => {
 });
 
 describe('getMonthlyData', () => {
-    it('Отримання графіку витрат по місяцям', () => {
+    it('should build the monthly spending chart data', () => {
         const transactions = [
             {
                 id: '1',
@@ -150,45 +150,45 @@ describe('formatDateToString', () => {
         vi.useRealTimers();
     });
 
-    it('форматування дати до виду YYYY-MM-DD', () => {
+    it('should format an ISO date string to YYYY-MM-DD', () => {
         expect(formatDateToString('2026-06-17T10:30:00.000Z')).toBe(
             '2026-06-17',
         );
     });
 
-    it('форматування object дати до виду YYYY-MM-DD', () => {
+    it('should format a Date object to YYYY-MM-DD', () => {
         const date = new Date('2026-01-05T00:00:00.000Z');
         expect(formatDateToString(date)).toBe('2026-01-05');
     });
 });
 
 describe('parseMonthValue', () => {
-    it('форматування місяць + рік', () => {
+    it('should parse a month name and year into year and monthIndex', () => {
         expect(parseMonthValue('january2026')).toEqual({
             year: 2026,
             monthIndex: 0,
         });
     });
 
-    it('форматування останнього місяця in a year', () => {
+    it('should correctly parse the last month of a year', () => {
         expect(parseMonthValue('december2025')).toEqual({
             year: 2025,
             monthIndex: 11,
         });
     });
 
-    it('форматування дати з різним кейсом слів', () => {
+    it('should parse a month value regardless of letter case', () => {
         expect(parseMonthValue('DECEMBER2025')).toEqual({
             year: 2025,
             monthIndex: 11,
         });
     });
 
-    it('форматування дати з цифрами', () => {
+    it('should return null for a month value with leading digits', () => {
         expect(parseMonthValue('2523december2025')).toBeNull();
     });
 
-    it('форматування дати з пробілами', () => {
+    it('should trim whitespace before parsing a month value', () => {
         expect(parseMonthValue('      december2025           ')).toEqual({
             year: 2025,
             monthIndex: 11,
@@ -197,7 +197,7 @@ describe('parseMonthValue', () => {
 });
 
 describe('getTransactionsForMonth', () => {
-    it('повертає порожній масив, коли жодна транзакція не потрапляє в місяць', () => {
+    it('should return an empty array when no transactions fall within the month', () => {
         const transactions = [
             {
                 id: '1',
@@ -211,7 +211,7 @@ describe('getTransactionsForMonth', () => {
         expect(getTransactionsForMonth(transactions, 'august2026')).toEqual([]);
     });
 
-    it('повертає транзакції за вказаний місяць', () => {
+    it('should return transactions belonging to the given month', () => {
         const transactions = [
             {
                 id: '1',
