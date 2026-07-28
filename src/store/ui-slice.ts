@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { MONTH_NAMES } from '@/data';
 
@@ -15,7 +15,7 @@ const uiSlice = createSlice({
     name: 'ui',
     initialState,
     reducers: {
-        setSelectedMonth: (state, action) => {
+        setSelectedMonth: (state, action: PayloadAction<string>) => {
             state.selectedMonth = action.payload;
         },
     },

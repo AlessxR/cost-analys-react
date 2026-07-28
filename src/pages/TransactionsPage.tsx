@@ -23,7 +23,8 @@ export const TransactionsPage = () => {
         updateSearchTerm,
     } = useMonthFilter();
 
-    if (fetchStatus === 'loading') return <Preloader />;
+    if (fetchStatus === 'loading' || fetchStatus === 'idle')
+        return <Preloader />;
     if (fetchStatus === 'failed') return <ErrorElement />;
     if (error) return <ErrorElement />;
 
@@ -80,7 +81,7 @@ export const TransactionsPage = () => {
 
             {monthTransactions.length === 0 ? (
                 <Heading color="black" textAlign="center">
-                    Наразі транзакцій немає : (
+                    Наразі транзакцій немає :(
                 </Heading>
             ) : (
                 <Box bg="white" borderRadius="xl" overflow="hidden">

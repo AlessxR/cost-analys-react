@@ -1,11 +1,12 @@
-import { CATEGORY_COLORS } from '@/data';
+import { Category, CATEGORY_COLORS } from '@/data';
+import { formatCurrency } from '@/lib/utils';
 
 import { Badge, Flex, Text } from '@chakra-ui/react';
 
 type Props = {
     date: string;
     title: string;
-    category: string;
+    category: Category;
     amount: number;
 };
 
@@ -89,7 +90,7 @@ export const TransactionRow = ({ date, title, category, amount }: Props) => {
                     flexShrink="0"
                     color="red"
                 >
-                    -₴{Math.abs(amount).toLocaleString('uk-UA')}
+                    {formatCurrency(amount)}
                 </Text>
             </Flex>
         </Flex>

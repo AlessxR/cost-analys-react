@@ -1,5 +1,7 @@
 import { FiGrid, FiList } from 'react-icons/fi';
 
+export type Category = keyof typeof CATEGORY_COLORS;
+
 export const MONTH_LABELS = [
     'Січ',
     'Лют',
@@ -36,7 +38,7 @@ export const CATEGORY_COLORS = {
     Дохід: { bg: 'green.50', color: 'green.700' },
     Комунальні: { bg: 'red.50', color: 'red.600' },
     Розваги: { bg: 'purple.50', color: 'purple.600' },
-};
+} as const;
 
 export const NAV_ITEMS = [
     { id: '/', label: 'Огляд', icon: FiGrid },

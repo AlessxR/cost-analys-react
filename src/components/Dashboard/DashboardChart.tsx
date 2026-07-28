@@ -29,7 +29,7 @@ export const DashboardChart = ({ transactions }: Props) => {
                         cursor={{ fill: '#F7FAFC' }}
                         animationDuration={0}
                         formatter={(value) => [
-                            formatCurrency(value),
+                            formatCurrency(Number(value)),
                             'Витрачено',
                         ]}
                     />

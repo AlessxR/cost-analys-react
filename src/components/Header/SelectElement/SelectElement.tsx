@@ -10,7 +10,7 @@ type Props = {
     selectPlaceholder: string;
     name: string;
     value: string[];
-    onValueChange: (details: SelectValueChangeDetails<any>) => void;
+    onValueChange: (details: SelectValueChangeDetails<string>) => void;
 };
 
 export const SelectElement = ({

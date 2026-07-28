@@ -1,15 +1,22 @@
-import { Card, Text } from '@chakra-ui/react';
+import { ReactNode } from 'react';
+
+import { Card, defineStyle, Text } from '@chakra-ui/react';
 
 type Props = {
     title: string;
-    value: string;
+    value: ReactNode;
     subtitle?: string;
 };
+
+const textStyle = defineStyle({
+    fontSize: 'sm',
+    color: 'gray.500',
+});
 
 export const DashboardCard = ({ title, value, subtitle }: Props) => (
     <Card.Root bgColor="white" border="none">
         <Card.Body>
-            <Text fontSize="sm" color="gray.500" mb="2">
+            <Text css={textStyle} mb="2">
                 {title}
             </Text>
             <Text
@@ -19,11 +26,7 @@ export const DashboardCard = ({ title, value, subtitle }: Props) => (
             >
                 {value}
             </Text>
-            {subtitle && (
-                <Text fontSize="sm" color="gray.500">
-                    {subtitle}
-                </Text>
-            )}
+            {subtitle && <Text css={textStyle}>{subtitle}</Text>}
         </Card.Body>
     </Card.Root>
 );

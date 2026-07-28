@@ -3,53 +3,6 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 
 import { IInitialTransaction, INewTransaction, ITransaction } from '@/types';
 
-const initialState: IInitialTransaction = {
-    transactions: [],
-    fetchStatus: 'idle',
-    postStatus: 'idle',
-    error: null,
-};
-
-const transactionSlice = createSlice({
-    name: 'transactions',
-    initialState,
-    reducers: {},
-    extraReducers: (builder) => {
-        builder
-            // get transactions
-            .addCase(fetchTransactions.pending, (state) => {
-                state.fetchStatus = 'loading';
-            })
-            .addCase(fetchTransactions.fulfilled, (state, action) => {
-                state.fetchStatus = 'succeeded';
-                state.transactions = action.payload;
-            })
-            .addCase(fetchTransactions.rejected, (state, action) => {
-                state.fetchStatus = 'failed';
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'Помилка отримання транзакції...';
-            })
-
-            // add new transaction
-            .addCase(postTransaction.pending, (state) => {
-                state.postStatus = 'loading';
-            })
-            .addCase(postTransaction.fulfilled, (state, action) => {
-                state.postStatus = 'succeeded';
-                state.transactions.push(action.payload);
-            })
-            .addCase(postTransaction.rejected, (state, action) => {
-                state.postStatus = 'failed';
-                state.error =
-                    action.payload ??
-                    action.error.message ??
-                    'Помилка додавання транзакції...';
-            });
-    },
-});
-
 export const fetchTransactions = createAsyncThunk<
     ITransaction[],
     void,
@@ -82,5 +35,54 @@ export const postTransaction = createAsyncThunk<
         }
     },
 );
+
+const initialState: IInitialTransaction = {
+    transactions: [],
+    fetchStatus: 'idle',
+    postStatus: 'idle',
+    error: null,
+};
+
+const transactionSlice = createSlice({
+    name: 'transactions',
+    initialState,
+    reducers: {},
+    extraReducers: (builder) => {
+        builder
+            // get transactions
+            .addCase(fetchTransactions.pending, (state) => {
+                state.fetchStatus = 'loading';
+            })
+            .addCase(fetchTransactions.fulfilled, (state, action) => {
+                state.error = null;
+                state.fetchStatus = 'succeeded';
+                state.transactions = action.payload;
+            })
+            .addCase(fetchTransactions.rejected, (state, action) => {
+                state.fetchStatus = 'failed';
+                state.error =
+                    action.payload ??
+                    action.error.message ??
+                    'Помилка отримання транзакції...';
+            })
+
+            // add new transaction
+            .addCase(postTransaction.pending, (state) => {
+                state.postStatus = 'loading';
+            })
+            .addCase(postTransaction.fulfilled, (state, action) => {
+                state.error = null;
+                state.postStatus = 'succeeded';
+                state.transactions.push(action.payload);
+            })
+            .addCase(postTransaction.rejected, (state, action) => {
+                state.postStatus = 'failed';
+                state.error =
+                    action.payload ??
+                    action.error.message ??
+                    'Помилка додавання транзакції...';
+            });
+    },
+});
 
 export default transactionSlice;

@@ -1,12 +1,15 @@
-import { createListCollection, ListCollection } from '@chakra-ui/react';
+import {
+    createListCollection,
+    SelectValueChangeDetails,
+} from '@chakra-ui/react';
 
-import { SelectElement } from '@/components';
+import { SelectElement } from './SelectElement';
 import { useAppSelector } from '@/store/hooks';
 
 type Props = {
     name: string;
     value: string[];
-    onValueChange: (value: string) => void;
+    onValueChange: (value: SelectValueChangeDetails<string>) => void;
 };
 
 export const SelectCategory = ({ name, value, onValueChange }: Props) => {

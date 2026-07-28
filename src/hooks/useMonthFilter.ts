@@ -52,7 +52,6 @@ export const useMonthFilter = () => {
         error,
         categories,
         monthTransactions,
-        categoryFiltered,
         filtered,
         updateSearchTerm,
         updateActiveFilter,

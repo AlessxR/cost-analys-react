@@ -3,15 +3,15 @@ import { MONTH_LABELS, MONTH_NAMES } from '@/data';
 import { ICategoryBreakdown, ITransaction } from '@/types';
 
 const getExpenses = (transactions: ITransaction[]) =>
-    transactions.filter((el) => Number(el.amount) < 0);
+    transactions.filter((el) => el.amount < 0);
 
-const getAbsAmount = (el: ITransaction) => Math.abs(Number(el.amount));
+const getAbsAmount = (el: ITransaction) => Math.abs(el.amount);
 
 export const calculateTotalSpent = (transactions: ITransaction[]) =>
     getExpenses(transactions).reduce((acc, el) => acc + getAbsAmount(el), 0);
 
 export const formatCurrency = (value: number) => {
-    const amount = Number(value) || 0;
+    const amount = value || 0;
 
     const formatted = new Intl.NumberFormat('uk-UA', {
         style: 'currency',
@@ -79,7 +79,7 @@ export const getMonthlyData = (transactions: ITransaction[] = []) => {
     const monthMap = new Map(months.map((m) => [m.key, m]));
 
     transactions.forEach((transaction) => {
-        const amount = Number(transaction.amount) || 0;
+        const amount = transaction.amount || 0;
         if (amount >= 0) return;
 
         const d = new Date(transaction.date);

@@ -1,5 +1,6 @@
-import { INewTransaction } from '@/types';
 import axios from 'axios';
+
+import { ICategory, INewTransaction, ITransaction } from '@/types';
 
 const BASE_URL = import.meta.env.VITE_API_URL;
 
@@ -12,18 +13,22 @@ const instance = axios.create({
 
 export const categoriesApi = {
     async getCategories() {
-        return instance.get('/categories').then((res) => res.data);
+        const response = await instance.get<ICategory[]>('/categories');
+        return response.data;
     },
 };
 
 export const transactionsApi = {
     async getTransactions() {
-        const response = await instance.get('/transactions');
+        const response = await instance.get<ITransaction[]>('/transactions');
         return response.data;
     },
 
     async addTransaction(transactionData: INewTransaction) {
-        const response = await instance.post('/transactions', transactionData);
+        const response = await instance.post<ITransaction>(
+            '/transactions',
+            transactionData,
+        );
         return response.data;
     },
 };

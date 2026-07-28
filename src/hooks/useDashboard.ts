@@ -12,7 +12,6 @@ import { ICategoryBreakdown, ITransaction, Status } from '@/types';
 
 type DashboardResult = {
     transactions: ITransaction[];
-    selectedMonth: string;
     categoryBreakdown: ReturnType<typeof calculateCategoryBreakdown>;
     monthTransactions: ITransaction[];
     fetchStatus: Status;
@@ -20,7 +19,7 @@ type DashboardResult = {
     topCategory: ICategoryBreakdown | null;
 };
 
-export function useDashboard(): DashboardResult {
+export const useDashboard = (): DashboardResult => {
     const { transactions, fetchStatus } = useAppSelector(
         (state) => state.transactions,
     );
@@ -45,11 +44,10 @@ export function useDashboard(): DashboardResult {
 
     return {
         transactions,
-        selectedMonth,
         categoryBreakdown,
         monthTransactions,
         fetchStatus,
         totalSpent,
         topCategory,
     };
-}
+};

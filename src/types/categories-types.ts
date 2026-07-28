@@ -7,7 +7,7 @@ export interface ICategory {
 
 export interface IInitialCategories {
     categories: ICategory[];
-    status: Status;
+    fetchStatus: Status;
     error: null | string;
 }
 

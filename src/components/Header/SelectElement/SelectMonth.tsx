@@ -4,7 +4,7 @@ import { uiActions } from '@/store/ui-slice';
 
 import { generateMonthItems } from '@/lib/utils';
 
-import { SelectElement } from '@/components';
+import { SelectElement } from './SelectElement';
 import { useAppDispatch, useAppSelector } from '@/store/hooks';
 
 const months = createListCollection({

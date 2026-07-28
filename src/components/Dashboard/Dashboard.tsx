@@ -35,7 +35,8 @@ export const Dashboard = () => {
         categoryBreakdown,
     } = useDashboard();
 
-    if (fetchStatus === 'loading') return <Preloader />;
+    if (fetchStatus === 'loading' || fetchStatus === 'idle')
+        return <Preloader />;
     if (fetchStatus === 'failed') return <ErrorElement />;
 
     return (

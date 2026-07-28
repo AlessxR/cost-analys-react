@@ -1,7 +1,7 @@
 import { Status } from '.';
 
 export interface ITransaction {
-    id?: string;
+    id: string;
     title: string;
     category: string;
     amount: number;
