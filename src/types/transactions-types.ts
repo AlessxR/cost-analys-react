@@ -1,9 +1,10 @@
+import { Category } from '@/data';
 import { Status } from '.';
 
 export interface ITransaction {
     id: string;
     title: string;
-    category: string;
+    category: Category;
     amount: number;
     date: string;
 }

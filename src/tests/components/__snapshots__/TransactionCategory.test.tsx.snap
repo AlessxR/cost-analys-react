@@ -1,0 +1,25 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TransactionCategory > should match snapshot when active 1`] = `
+<DocumentFragment>
+  <div
+    class="css-1cr6yi3"
+    role="button"
+    tabindex="0"
+  >
+    Розваги
+  </div>
+</DocumentFragment>
+`;
+
+exports[`TransactionCategory > should match snapshot without active 1`] = `
+<DocumentFragment>
+  <div
+    class="css-at8ho6"
+    role="button"
+    tabindex="0"
+  >
+    Розваги
+  </div>
+</DocumentFragment>
+`;

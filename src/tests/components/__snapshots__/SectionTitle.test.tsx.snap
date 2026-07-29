@@ -1,0 +1,16 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`SectionTitle > should match snapshot with children and totalSpent 1`] = `
+<DocumentFragment>
+  <p
+    class="css-y5l69g"
+  >
+    Expenses
+    <span
+      class="css-zsbe0s"
+    >
+      1200 UAH
+    </span>
+  </p>
+</DocumentFragment>
+`;

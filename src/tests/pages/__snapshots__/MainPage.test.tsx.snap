@@ -1,0 +1,241 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`MainPage > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-15urlx2"
+  >
+    <div
+      class="css-xyrjj"
+    >
+      <h2
+        class="chakra-heading css-1dtwazb"
+      >
+        Огляд
+      </h2>
+      <div
+        class="css-1vfbuio"
+      >
+        <div
+          class="chakra-select__root css-f0j9n3"
+          data-part="root"
+          data-scope="select"
+          dir="ltr"
+          id="select:_r_0_"
+        >
+          <select
+            aria-hidden="true"
+            aria-labelledby="select:_r_0_:label"
+            id="select:_r_0_:select"
+            name="month"
+            style="border: 0px; clip: rect(0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; white-space: nowrap; word-wrap: normal;"
+            tabindex="-1"
+          >
+            <option
+              selected=""
+              value="july2026"
+            >
+              Липень 2026
+            </option>
+            <option
+              value="june2026"
+            >
+              Червень 2026
+            </option>
+            <option
+              value="may2026"
+            >
+              Травень 2026
+            </option>
+            <option
+              value="april2026"
+            >
+              Квітень 2026
+            </option>
+            <option
+              value="march2026"
+            >
+              Березень 2026
+            </option>
+            <option
+              value="february2026"
+            >
+              Лютий 2026
+            </option>
+            <option
+              value="january2026"
+            >
+              Січень 2026
+            </option>
+            <option
+              value="december2025"
+            >
+              Грудень 2025
+            </option>
+            <option
+              value="november2025"
+            >
+              Листопад 2025
+            </option>
+            <option
+              value="october2025"
+            >
+              Жовтень 2025
+            </option>
+            <option
+              value="september2025"
+            >
+              Вересень 2025
+            </option>
+            <option
+              value="august2025"
+            >
+              Серпень 2025
+            </option>
+          </select>
+          <div
+            class="chakra-select__control css-17j1053"
+            data-part="control"
+            data-scope="select"
+            data-state="closed"
+            dir="ltr"
+            id="select:_r_0_:control"
+          >
+            <button
+              aria-controls="select:_r_0_:content"
+              aria-expanded="false"
+              aria-haspopup="listbox"
+              aria-invalid="false"
+              aria-labelledby="select:_r_0_:label"
+              aria-required="false"
+              class="chakra-select__trigger css-qah0cw"
+              data-part="trigger"
+              data-scope="select"
+              data-state="closed"
+              dir="ltr"
+              id="select:_r_0_:trigger"
+              role="combobox"
+              type="button"
+            >
+              <span
+                class="chakra-select__valueText css-176t9sc"
+                data-part="value-text"
+                data-scope="select"
+                dir="ltr"
+              >
+                Липень 2026
+              </span>
+            </button>
+            <div
+              class="chakra-select__indicatorGroup css-1fx1ifu"
+            >
+              <div
+                aria-hidden="true"
+                class="chakra-select__indicator css-1atg1ut"
+                data-part="indicator"
+                data-scope="select"
+                data-state="closed"
+                dir="ltr"
+              >
+                <svg
+                  class="css-s3mb0o"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="m6 9 6 6 6-6"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button
+          aria-expanded="false"
+          aria-haspopup="dialog"
+          class="chakra-button chakra-dialog__trigger css-1fbtlty"
+          data-ownedby="_r_1_"
+          data-part="trigger"
+          data-scope="dialog"
+          data-state="closed"
+          dir="ltr"
+          id="dialog:_r_1_:trigger"
+          type="button"
+        >
+          <svg
+            fill="none"
+            height="1em"
+            stroke="currentColor"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+            width="1em"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="12"
+              x2="12"
+              y1="5"
+              y2="19"
+            />
+            <line
+              x1="5"
+              x2="19"
+              y1="12"
+              y2="12"
+            />
+          </svg>
+          <p
+            class="css-1pvfh82"
+          >
+            Додати операцію
+          </p>
+          <p
+            class="css-bah6rc"
+          >
+            Додати
+          </p>
+        </button>
+      </div>
+    </div>
+    <div
+      class="css-145cvbe"
+    >
+      <div
+        class="chakra-progress__root css-pompkc"
+        data-max="100"
+        data-orientation="horizontal"
+        data-part="root"
+        data-scope="progress"
+        data-state="indeterminate"
+        dir="ltr"
+        id="progress-_r_2_"
+      >
+        <div
+          aria-label="loading..."
+          aria-valuemax="100"
+          aria-valuemin="0"
+          class="chakra-progress__track css-15s1jud"
+          data-max="100"
+          data-orientation="horizontal"
+          data-part="track"
+          data-scope="progress"
+          data-state="indeterminate"
+          dir="ltr"
+          id="progress-_r_2_-track"
+          role="progressbar"
+        >
+          <div
+            class="chakra-progress__range css-i9zykr"
+            data-orientation="horizontal"
+            data-part="range"
+            data-scope="progress"
+            data-state="indeterminate"
+            dir="ltr"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

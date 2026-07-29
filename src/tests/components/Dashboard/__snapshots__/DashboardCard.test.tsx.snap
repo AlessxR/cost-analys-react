@@ -1,0 +1,29 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DashboardElement > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="chakra-card__root css-dvt2yn"
+  >
+    <div
+      class="chakra-card__body css-11e8ur2"
+    >
+      <p
+        class="css-4xwi3l"
+      >
+        title
+      </p>
+      <p
+        class="css-my0yh"
+      >
+        test
+      </p>
+      <p
+        class="css-1d0twq"
+      >
+        subtitle
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

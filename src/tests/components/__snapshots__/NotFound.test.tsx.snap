@@ -1,0 +1,22 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`NotFound > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-mi1nw3"
+  >
+    <h2
+      class="chakra-heading css-uu1u5z"
+    >
+      Такої сторінки не знайдено...
+      <br />
+      <a
+        data-discover="true"
+        href="/"
+      >
+        Повернутися назад
+      </a>
+    </h2>
+  </div>
+</DocumentFragment>
+`;

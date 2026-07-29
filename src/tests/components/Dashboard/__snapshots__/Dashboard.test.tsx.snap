@@ -1,0 +1,44 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Dashboard > should match snapshot when loading 1`] = `
+<DocumentFragment>
+  <div
+    class="css-145cvbe"
+  >
+    <div
+      class="chakra-progress__root css-pompkc"
+      data-max="100"
+      data-orientation="horizontal"
+      data-part="root"
+      data-scope="progress"
+      data-state="indeterminate"
+      dir="ltr"
+      id="progress-_r_0_"
+    >
+      <div
+        aria-label="loading..."
+        aria-valuemax="100"
+        aria-valuemin="0"
+        class="chakra-progress__track css-15s1jud"
+        data-max="100"
+        data-orientation="horizontal"
+        data-part="track"
+        data-scope="progress"
+        data-state="indeterminate"
+        dir="ltr"
+        id="progress-_r_0_-track"
+        role="progressbar"
+      >
+        <div
+          class="chakra-progress__range css-i9zykr"
+          data-orientation="horizontal"
+          data-part="range"
+          data-scope="progress"
+          data-state="indeterminate"
+          dir="ltr"
+        />
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
