@@ -1,0 +1,47 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`TransactionRow > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-11jcqw3"
+  >
+    <div
+      class="css-qc38bq"
+    >
+      <p
+        class="css-1da9ext"
+      >
+        магазинчик
+      </p>
+      <span
+        class="chakra-badge css-1ligjue"
+      >
+        Продукти
+      </span>
+    </div>
+    <div
+      class="css-8t0xzi"
+    >
+      <div
+        class="css-14fyjnu"
+      >
+        <p
+          class="css-ghybju"
+        >
+          july26
+        </p>
+        <span
+          class="chakra-badge css-1w2212m"
+        >
+          Продукти
+        </span>
+      </div>
+      <p
+        class="css-1dhfuim"
+      >
+        500 ₴
+      </p>
+    </div>
+  </div>
+</DocumentFragment>
+`;

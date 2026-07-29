@@ -2,14 +2,25 @@ import { render } from '@testing-library/react';
 
 import { describe, it, expect } from 'vitest';
 
-import { DashboardCard } from '../../components/index';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { DashboardChart } from '@/components';
+import { ITransaction } from '@/types';
 
-describe('DashboardElement', () => {
+const mockTransactions: ITransaction[] = [
+    {
+        id: '1',
+        amount: 500,
+        category: 'Комунальні',
+        date: '2026-09-15',
+        title: 'Світло',
+    },
+];
+
+describe('DashboardChart', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(
             <ChakraProvider value={defaultSystem}>
-                <DashboardCard title="title" value="test" subtitle="subtitle" />
+                <DashboardChart transactions={mockTransactions} />
             </ChakraProvider>,
         );
         expect(asFragment()).toMatchSnapshot();

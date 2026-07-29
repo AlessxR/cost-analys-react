@@ -1,18 +1,16 @@
-import { render } from '@testing-library/react';
-
 import { describe, it, expect } from 'vitest';
-
-import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { MemoryRouter } from 'react-router';
+import { render } from '@testing-library/react';
+import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 
-import { NotFound } from '@/components';
+import { Sidebar } from '@/components';
 
-describe('NotFound', () => {
+describe('Sidebar', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(
             <MemoryRouter>
                 <ChakraProvider value={defaultSystem}>
-                    <NotFound />
+                    <Sidebar />
                 </ChakraProvider>
             </MemoryRouter>,
         );

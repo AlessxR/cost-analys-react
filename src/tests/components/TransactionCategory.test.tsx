@@ -1,10 +1,10 @@
-import { fireEvent, getByRole, render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 
 import { describe, it, expect } from 'vitest';
 
-import { TransactionCategory } from '../../components/index';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
 import { ICategory } from '@/types';
+import { TransactionCategory } from '@/components';
 
 const mockCategories: ICategory = {
     label: 'Розваги',

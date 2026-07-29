@@ -1,0 +1,70 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`DashboardBreakDown > should match snapshot 1`] = `
+<DocumentFragment>
+  <div
+    class="css-16p2oxl"
+  >
+    <div
+      class="chakra-stack css-1y3f6ad"
+    >
+      <div
+        class="chakra-stack css-1x0y7ph"
+      >
+        <div
+          class="css-1takkf0"
+        />
+        <p
+          class="css-niwogb"
+        >
+          Розваги
+        </p>
+      </div>
+      <div
+        class="chakra-stack css-vyigcq"
+      >
+        <p
+          class="css-niwogb"
+        >
+          1 440 ₴
+        </p>
+        <p
+          class="css-1bltt39"
+        >
+          50%
+        </p>
+      </div>
+    </div>
+    <div
+      class="chakra-stack css-1y3f6ad"
+    >
+      <div
+        class="chakra-stack css-1x0y7ph"
+      >
+        <div
+          class="css-1takkf0"
+        />
+        <p
+          class="css-niwogb"
+        >
+          Комунальні
+        </p>
+      </div>
+      <div
+        class="chakra-stack css-vyigcq"
+      >
+        <p
+          class="css-niwogb"
+        >
+          1 440 ₴
+        </p>
+        <p
+          class="css-1bltt39"
+        >
+          50%
+        </p>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

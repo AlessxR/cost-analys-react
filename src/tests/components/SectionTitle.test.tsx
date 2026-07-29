@@ -2,8 +2,9 @@ import { render } from '@testing-library/react';
 
 import { describe, it, expect } from 'vitest';
 
-import { SectionTitle } from '../../components/index';
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+
+import { SectionTitle } from '@/components';
 
 describe('SectionTitle', () => {
     it('should match snapshot with children and totalSpent', () => {

@@ -3,14 +3,13 @@ import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
+import { DashboardCard } from '@/components';
 
-import { ErrorElement } from '@/components';
-
-describe('ErrorElement', () => {
+describe('DashboardElement', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(
             <ChakraProvider value={defaultSystem}>
-                <ErrorElement />
+                <DashboardCard title="title" value="test" subtitle="subtitle" />
             </ChakraProvider>,
         );
         expect(asFragment()).toMatchSnapshot();

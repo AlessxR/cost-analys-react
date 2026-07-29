@@ -17,13 +17,6 @@ export const mockTransactions: ITransaction[] = [
         amount: -200,
         date: '2025-01-15',
     },
-    {
-        id: '2',
-        title: 'ЗП',
-        category: 'Дохід',
-        amount: 15000,
-        date: '2025-01-20',
-    },
 ];
 
 describe('generateMonthItems', () => {
@@ -63,11 +56,35 @@ describe('calculateCategoryBreakdown', () => {
     it('should calculate the breakdown for a single category', () => {
         const result = calculateCategoryBreakdown(mockTransactions);
 
-        expect(result).toEqual([{ label: 'Продукти', sum: 100, percent: 100 }]);
+        expect(result).toEqual([{ label: 'Продукти', sum: 200, percent: 100 }]);
     });
 
     it('should calculate the breakdown for more than one category', () => {
-        const result = calculateCategoryBreakdown(mockTransactions);
+        const transactions: ITransaction[] = [
+            {
+                id: '1',
+                title: 'Хліб',
+                category: 'Продукти',
+                amount: -100,
+                date: '2025-01-15',
+            },
+            {
+                id: '2',
+                title: 'Таксі',
+                category: 'Транспорт',
+                amount: -150,
+                date: '2025-01-16',
+            },
+            {
+                id: '3',
+                title: 'Автобус',
+                category: 'Транспорт',
+                amount: -100,
+                date: '2025-01-17',
+            },
+        ];
+
+        const result = calculateCategoryBreakdown(transactions);
 
         expect(result).toEqual([
             { label: 'Транспорт', sum: 250, percent: 71 },
@@ -78,7 +95,25 @@ describe('calculateCategoryBreakdown', () => {
 
 describe('getMonthlyData', () => {
     it('should build the monthly spending chart data', () => {
-        const result = getMonthlyData(mockTransactions);
+        const transactions: ITransaction[] = [
+            {
+                id: '1',
+                title: 'Хліб',
+                category: 'Продукти',
+                amount: -200,
+                date: '2026-06-05',
+            },
+            {
+                id: '2',
+                title: 'Таксі',
+                category: 'Транспорт',
+                amount: -150,
+                date: '2026-06-20',
+            },
+        ];
+
+        const result = getMonthlyData(transactions);
+
         expect(result).toEqual([
             {
                 key: '2026-1',
@@ -172,7 +207,7 @@ describe('parseMonthValue', () => {
 
 describe('getTransactionsForMonth', () => {
     it('should return an empty array when no transactions fall within the month', () => {
-        const transactions = [
+        const transactions: ITransaction[] = [
             {
                 id: '1',
                 title: 'Хліб',
@@ -186,7 +221,7 @@ describe('getTransactionsForMonth', () => {
     });
 
     it('should return transactions belonging to the given month', () => {
-        const transactions = [
+        const transactions: ITransaction[] = [
             {
                 id: '1',
                 title: 'Хліб',

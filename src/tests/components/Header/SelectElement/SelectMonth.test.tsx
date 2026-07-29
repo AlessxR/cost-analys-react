@@ -1,20 +1,21 @@
-import { render } from '@testing-library/react';
-
+import { Provider } from 'react-redux';
 import { describe, it, expect } from 'vitest';
 
+import { render } from '@testing-library/react';
+
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
-import { MemoryRouter } from 'react-router';
+import store from '@/store';
 
-import { NotFound } from '@/components';
+import { SelectMonth } from '@/components';
 
-describe('NotFound', () => {
+describe('SelectMonth', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(
-            <MemoryRouter>
+            <Provider store={store}>
                 <ChakraProvider value={defaultSystem}>
-                    <NotFound />
+                    <SelectMonth name="Вересень" />
                 </ChakraProvider>
-            </MemoryRouter>,
+            </Provider>,
         );
         expect(asFragment()).toMatchSnapshot();
     });

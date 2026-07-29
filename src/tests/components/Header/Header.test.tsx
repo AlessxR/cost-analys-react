@@ -3,18 +3,19 @@ import { render } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 
 import { ChakraProvider, defaultSystem } from '@chakra-ui/react';
-import { MemoryRouter } from 'react-router';
+import { Provider } from 'react-redux';
+import store from '@/store';
 
-import { NotFound } from '@/components';
+import { Header } from '@/components';
 
-describe('NotFound', () => {
+describe('HeaderElement', () => {
     it('should match snapshot', () => {
         const { asFragment } = render(
-            <MemoryRouter>
+            <Provider store={store}>
                 <ChakraProvider value={defaultSystem}>
-                    <NotFound />
+                    <Header titleHeader="header" />
                 </ChakraProvider>
-            </MemoryRouter>,
+            </Provider>,
         );
         expect(asFragment()).toMatchSnapshot();
     });
